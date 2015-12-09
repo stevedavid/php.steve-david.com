@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-content" id="scroll-realisations">
+                <h1> Réalisations </h1>
+
+                <!-- Category Filter -->
+                <dl class="group">
+                    <dt></dt>
+                    <dd>
+                        <ul class="filter group albumFilter">
+                            <li data-filter="*" class="cl-effect-11 current"><a data-hover="Toutes" href="#">Toutes</a></li>
+                            <li class="cl-effect-11" data-filter=".prof"><a data-hover="Professionnelles"  href="#">Professionnelles</a></li>
+                            <li class="cl-effect-11" data-filter=".perso"><a data-hover="Personnelles" href="#">Personnelles</a></li>
+                            <!--<li class="cl-effect-11" data-filter=".ecole"><a data-hover="Ecole" href="#">Ecole</a></li>-->
+                        </ul>
+                    </dd>
+                </dl>
+                <div class="portfolio albumContainer">
+
+                    {% for key, realisation in realisations %}
+                        <div class="{{ realisation.thumbnail.category }} col-md-4 item">
+                            <div class="grid">
+                                <figure class="effect-oscar">
+                                    <img src="images/realisations/{{ realisation.thumbnail.image }}" alt="" />
+                                    <figcaption>
+                                        <p>
+                                              <span>
+                                                {{ realisation.thumbnail.name }} &bull; {{ realisation.thumbnail.type }}
+                                              </span>
+                                        </p>
+                                        <a href="details.html" class="smooth-redirect" data-rea="{{ key }}"></a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+            </div><!--close box content-->
+        </div>
+    </div>
+</div>

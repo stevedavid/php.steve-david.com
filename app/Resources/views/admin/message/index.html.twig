@@ -1,0 +1,54 @@
+{% extends '::admin/base.html.twig' %}
+
+{% block body %}
+    {% include 'admin/message/includes/menu.html.twig' with {'corbeille_count': corbeille_count, 'nouveaux_count': nouveaux_count, 'messages_count': messages_count} %}
+    <div class="col-md-9">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ folder|capitalize }}</h3>
+                <div class="box-tools pull-right">
+                    <div class="has-feedback">
+                        <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                    </div>
+                </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="table-responsive mailbox-messages">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            {% for key, message in messages %}
+                                <tr class="{% if message.lu == false %}message-unread{% endif %}">
+                                    <td class="mailbox-star">
+                                        <a href="{{ path('admin_message_supprimer', {id: key}) }}">
+                                            {% if message.corbeille %}
+                                                <i class="fa fa-ban text-red"></i>
+                                            {% else %}
+                                                <i class="fa fa-trash text-red"></i>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td class="mailbox-name"><a href="{{ path('admin_message_voir', {id: key}) }}">{{ message.name }}</a></td>
+                                    <td class="mailbox-subject"><u>{{ message.sujet }}</u> - {{ message.message|slice(0, 10) ~ '...' }}</td>
+                                    <td class="mailbox-date">{{ message.date|ago }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        Aucun message dans ce dossier
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table><!-- /.table -->
+                </div><!-- /.mail-box-messages -->
+            </div><!-- /.box-body -->
+            <div class="box-footer text-center">
+                {{ messages|length }} message(s)
+            </div>
+        </div><!-- /. box -->
+    </div><!-- /.col -->
+{% endblock %}
+
+{% block js %}
+{% endblock %}

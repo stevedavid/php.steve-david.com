@@ -1,0 +1,37 @@
+-
+    name: 'Langages & Framework'
+    items:
+        - { name: PHP5, niveau: '85', legende: [''] }
+        - { name: HTML5, niveau: '85', legende: [''] }
+        - { name: jQuery, niveau: '90', legende: [''] }
+        - { name: CSS3, niveau: '80', legende: [''] }
+        - { name: ZF1, niveau: '75', legende: [''] }
+        - { name: JS, niveau: '80', legende: [''] }
+        - { name: SF2, niveau: '70', legende: [''] }
+        - { name: Node.JS, niveau: '15', legende: [''] }
+-
+    name: 'Base de données'
+    items:
+        - { name: MySQL, niveau: '70', legende: [''] }
+        - { name: Oracle, niveau: '10', legende: [''] }
+        - { name: SQL-Server, niveau: '10', legende: [''] }
+-
+    name: 'Logiciels & Outils'
+    items:
+        - { name: 'MS Office', niveau: '100', legende: [Word, Excel, Powerpoint, Access] }
+        - { name: 'Serveurs Web', niveau: '90', legende: [EasyPHP, WAMP, Apache2, Lighttpd] }
+        - { name: IDE, niveau: '70', legende: [PhpStorm, Eclipse, Netbeans] }
+        - { name: Versioning, niveau: '50', legende: [Git, SVN] }
+        - { name: Editeurs, niveau: '80', legende: [Notepad++, SublimeText] }
+        - { name: Graphisme, niveau: '20', legende: [InDesign, Illustrator, 'Photoshop CS6'] }
+-
+    name: 'Systèmes d''exploitation'
+    items:
+        - { name: Windows, niveau: '100', legende: [''] }
+        - { name: Linux/Unix, niveau: '80', legende: [FreeBSD, Debian, Ubuntu] }
+        - { name: 'Mac OS', niveau: '80', legende: [''] }
+-
+    name: Autres
+    items:
+        - { name: CMS, niveau: '70', legende: [Wordpress] }
+        - { name: Réseaux, niveau: '40', legende: [IP, TCP/IP, DNS] }

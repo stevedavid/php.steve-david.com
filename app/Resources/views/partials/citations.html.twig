@@ -1,0 +1,22 @@
+<div class="parallax2">
+    <div class="overlay-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="owl-demo" class="owl-carousel owl-theme">
+                        {% for citation in citations %}
+                            <div class="item">
+                                <div class="carousel-desc">
+                                    <i class="fa {{ citation.icon }}"></i>
+                                    <h1>{{ citation.name }}</h1>
+                                    <p>{{ citation.quote }}</p>
+                                    <p class="nm-name">- {{ citation.profession }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

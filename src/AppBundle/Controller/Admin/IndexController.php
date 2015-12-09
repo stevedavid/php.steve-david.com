@@ -1,0 +1,56 @@
+<?php
+namespace AppBundle\Controller\Admin;
+
+use AppBundle\Core\CoreInterface as Core;
+use AppBundle\Core\YamlTrait as Yaml;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Yaml\Dumper;
+
+/**
+ * @Route("/admin")
+ *
+ * Class IndexController
+ * @package AppBundle\Controller\Admin
+ */
+class IndexController extends Controller implements Core
+{
+    use Yaml;
+
+    /**
+     * @Route("/", name="admin_index_index")
+     */
+    public function indexAction()
+    {
+        $yml = [];
+        foreach($this->ymlFiles as $key => $file) {
+            $yml[$key] = $this->get(self::YAML_MANAGER)->loadData($file);
+        }
+
+        return $this->render('views/admin/index/index.html.twig', $yml);
+    }
+
+    function navigationAction()
+    {
+        return $this->render('views/admin/partials/navigation.html.twig');
+    }
+
+    function breadcrumbAction()
+    {
+        return $this->render('views/admin/partials/breadcrumb.html.twig');
+    }
+
+    function menuAction()
+    {
+        return $this->render('views/admin/partials/menu.html.twig');
+    }
+
+    function headerAction()
+    {
+        return $this->render('views/admin/partials/header.html.twig');
+    }
+}

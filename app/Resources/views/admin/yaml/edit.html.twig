@@ -1,0 +1,104 @@
+{% extends '::admin/base.html.twig' %}
+
+{% block body %}
+    {% import 'admin/macros/display-yaml.html.twig' as macros %}
+    <div class="box box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{ file ~ '.yml' }}</h3>
+        </div>
+        <div class="box-body">
+            <ul id="yaml-file">
+                {{ macros.display_yaml(yml) }}
+            </ul>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <button class="btn btn-success" id="sauvegarder-yaml">Sauvegarder</button>
+    </div>
+    <div class="col-xs-6">
+        <button class="btn btn-danger" id="annuler-yaml">Annuler</button>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        jQuery(function($) {
+
+            var $yaml = $('#yaml-file');
+
+            $yaml.find('button').on('click', function() {
+
+                var action = $(this).data('action')
+                    , $li = $(this).closest('li')
+                ;
+
+                if(action == 'ajouter') {
+                    var $clone = $li.clone(true);
+                    $clone.find('input').each(function() {
+                        $(this).val('');
+                    });
+
+                    $li.after($clone.hide().fadeIn());
+                } else if(action == 'enlever') {
+                    $li.fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                }
+
+            });
+
+            var yaml = {};
+            var storeYaml = function storeYaml($lis) {
+                var innerYaml = {};
+                console.log('function called');
+                $lis.each(function(i) {
+                    console.log($.isNumeric($(this).find('> .yaml-key').text()));
+                    var key = $.isNumeric($(this).find('> .yaml-key').text()) ? i : $(this).find('> .yaml-key').text()
+                        , $ul = $(this).find('> ul')
+                        , $input = $(this).find('> .form-group > input')
+                    ;
+                    console.log('key ==> ' + key);
+                    if(!$input.length) {
+                        innerYaml[key] = storeYaml($ul.find('> li'));
+                    } else if(!$ul.length) {
+                        innerYaml[key] = $input.val();
+                    }
+                    yaml = innerYaml;
+                });
+                return innerYaml;
+            };
+
+            $('#sauvegarder-yaml').on('click', function() {
+                console.log($('#yaml-file').html());
+                $(this).attr('disabled', 'disabled');
+                console.log($yaml.find('> li'));
+                var yaml = storeYaml($('#yaml-file').find('> li'));
+                console.log(yaml);
+                $.ajax({
+                    url: '{{ path('admin_yaml_save', {ymlFile: file}) }}',
+                    method: 'post',
+                    data: {yaml: yaml},
+                    success: function() {
+                        $yaml.find('.form-group').removeClass('has-error').addClass('has-success');
+                    },
+                    error: function() {
+                        $yaml.find('.form-group').removeClass('has-success').addClass('has-error');
+                    }
+                });
+            }).on('blur', function() {
+                if($(this).is(':disabled')) {
+                    $(this).removeAttr('disabled');
+                }
+            });
+
+
+
+
+
+            $('#annuler-yaml').on('click', function() {
+                document.location.reload();
+            });
+
+        });
+    </script>
+{% endblock %}

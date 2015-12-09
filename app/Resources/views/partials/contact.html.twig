@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Contact</h1>
+            <div class="box-content contact">
+                <div class="col-md-6 c-info"><p><i class="fa fa fa-map-marker"></i>Paris, France</p></div>
+                <div class="col-md-6 c-info">
+                    <p>
+                        <i class="fa fa-envelope-o"></i>
+                                <span class="email-rtl">
+                                    moc.divad-evets<i class="fa fa-at"></i>evets
+                                </span>
+                    </p>
+                </div>
+
+                <div class="col-md-12 text-center bold">- ou utilisez le formulaire ci-dessous -</div>
+
+
+                {{ form_start(form) }}
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <div class="input-group">
+                                {{ form_widget(form.sujet) }}
+                                <span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <div class="input-group">
+                                {{ form_widget(form.nom) }}
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <div class="input-group">
+                                {{ form_widget(form.email) }}
+                                <span class="input-group-addon"><i class="fa fa-at"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_widget(form.message) }}
+                        {{ form_widget(form.envoyer) }}
+                    </div>
+                <div class="col-md-12 text-center no-opacity" id="form-response"></div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>

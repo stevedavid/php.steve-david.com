@@ -1,0 +1,44 @@
+ul#yaml-file input {
+    width: 500px;
+    margin: 5px;
+}
+
+body {
+    padding-bottom: 30px;
+}
+
+.has-feedback .form-control {
+    padding: 6px 12px;
+}
+
+.btn-group {
+    height: 30px;
+}
+
+.one-list-message .message-date {
+    width: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.one-list-message {
+    cursor: pointer;
+}
+
+.one-list-message:hover {
+    background-color: #bfbfbf;
+}
+
+.one-list-message.msg-unread {
+    font-weight: bold;
+}
+
+.one-list-message.msg-unread .message-title strong {
+    text-decoration: underline;
+}
+
+
+#search > input:focus {
+    width:100%;
+    outline:none;
+}

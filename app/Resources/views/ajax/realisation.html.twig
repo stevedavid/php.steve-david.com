@@ -1,0 +1,63 @@
+<div class="modal fade" id="rea-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{ realisation.popup.name }}</h4>
+            </div>
+            <div class="modal-body">
+                <section id="project">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <img src="images/realisations/{{ realisation.popup.image }}" alt="" id="rea"/>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box-content" id="description">
+                                <h1> DESCRIPTION </h1>
+                                <div class="col-md-4">
+                                    <div class="box-text">
+                                        <h2>Pourquoi</h2>
+                                        <p>{{ realisation.popup.why|raw }}<p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="box-text">
+                                        <h2>Résultat</h2>
+                                        <p>{{ realisation.popup.results|raw }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="box-text">
+                                        <h2>Dates</h2>
+                                        {% for date in realisation.popup.dates %}
+                                            <p>{{ date }}</p>
+                                        {% endfor %}
+                                        <h2>Technologies</h2>
+                                        {% for technology in realisation.popup.technologies %}
+                                            <p>{{ technology }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div><!--close box content-->
+                        </div>
+                    </div><!--close row-->
+                    <div class="row">
+                        <div class="col-md-12 text-center" id="link-to-rea">
+                            <i class="fa fa-anchor-link"></i>
+                            <br/>
+                            <a href="{{ realisation.popup.href }}" class="nice-link" target="_blank">{{ realisation.popup.link }}</a>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

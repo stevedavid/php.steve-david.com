@@ -1,0 +1,41 @@
+<div class="box-content experiences" id="parcours-experiences">
+    {% for experience in experiences %}
+    <div class="col-md-12 list-experiences">
+        <h2>
+            <i class="fa fa-briefcase"></i>
+            {{ experience.poste }}
+            {% if experience.contrat != null %}
+                ({{ experience.contrat }})
+            {% endif %}
+            <i class="fa fa-calendar-o"></i>
+            {{ experience.dates[0] }} - {{ experience.dates[1] }}
+            <span class="data">
+                {% if experience.societe != null %}
+                    {{ experience.societe }}
+                    &bull;
+                {% endif %}
+                {{ experience.ville }}
+            </span>
+        </h2>
+        <p>{{ experience.description }}</p>
+        <p>
+            <u>Environnement technique</u> :
+            {% for technologie in experience.technologies %}
+                {{ technologie }}{% if loop.last == false %},{% endif %}
+            {% endfor %}
+        </p>
+    </div>
+    {% endfor %}
+
+</div>
+
+<div class="box-content experiences" id="parcours-formations" style="display: none;">
+    {% for formation in formations %}
+    <div class="col-md-12 list-experiences">
+        <h2><i class="fa fa-university"></i>{{ formation.intitule }} ({{ formation.niveau }}) <i class="fa fa-graduation-cap"></i>{{ formation.graduation }}
+            <span class="data">{{ formation.ecole }} &bull; {{ formation.ville }}</span>
+        </h2>
+        <p>{{ formation.description }}</p>
+    </div>
+    {% endfor %}
+</div>

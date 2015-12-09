@@ -1,0 +1,48 @@
+5:
+    message: Test6
+    name: Kikoo
+    email: kikoo@lol.com
+    sujet: Kikoo
+    date: '2015-12-08 19:56:38'
+    lu: 1
+    corbeille: 0
+4:
+    message: Test5
+    name: Kikoo
+    email: kikoo@lol.com
+    sujet: Kikoo
+    date: '2015-12-07 23:59:42'
+    lu: 1
+    corbeille: 0
+3:
+    message: Test4
+    name: Kikoo
+    email: kikoo@lol.com
+    sujet: Kikoo
+    date: '2015-12-07 23:59:37'
+    lu: 1
+    corbeille: 0
+2:
+    message: Test3
+    name: Kikoo
+    email: kikoo@lol.com
+    sujet: Kikoo
+    date: '2015-12-07 23:59:28'
+    lu: 1
+    corbeille: 1
+1:
+    message: Test2
+    name: Kikoo
+    email: kikoo@lol.com
+    sujet: Kikoo
+    date: '2015-12-07 23:59:24'
+    lu: 1
+    corbeille: 0
+0:
+    message: Test1
+    name: Kikoo
+    email: kikoo@lol.com
+    sujet: Kikoo
+    date: '2015-12-07 23:59:05'
+    lu: 1
+    corbeille: 0

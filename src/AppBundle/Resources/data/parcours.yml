@@ -1,0 +1,62 @@
+experiences:
+    -
+        societe: Link Value
+        ville: Paris
+        poste: Développeur Symfony2 en PHP5/MySQL
+        contrat: CDI
+        dates: ["10/2015", "aujourd'hui"]
+        description: "Au sein d'une petite SSII à taille humaine, je suis amené à intervenir sur des projets divers et variés et à évoluer dans des environnements différents."
+        technologies: [PHP5.6, SF2.8, MySQL, PhpStorm, Mac OSX]
+    -
+        societe: Societe.com
+        ville: Paris
+        poste: Développeur Symfony2 en PHP5/MySQL
+        contrat: CDI
+        dates: [07/2014, 10/2015]
+        description: "Je réalise la refonte du gestionnaire et développe le Back-Office. Ce CRM permet, en interne, de gérer les requêtes clients, établir des rapports et consulter les statistiques des ventes. Je réalise également un autre projet en Symfony2.6 de vente en ligne de documents officiels."
+        technologies: [PHP5.6, ZF1.12, SF2.6, MySQL, HTML5, CSS3, jQuery, PhpStorm, FreeBSD]
+    -
+        societe: Microscoop
+        ville: Montreuil
+        poste: Développeur Zend Framework 1 en PHP5/MySQL
+        contrat: alternance
+        dates: [04/2013, 05/2014]
+        description: "Deux réalisations sont issues de cette expérience : l'une est un site en rapport avec un magazine relatif aux nouvelles technologies hardware et software et l'autre était un site éditorial pour le compte d'Intel France."
+        technologies: [PHP5.4, ZF1.12, MySQL, HTML5, CSS3, jQuery, SublimeText, Windows 7]
+    -
+        societe: null
+        ville: Montpellier
+        poste: Réalisation personnelle
+        contrat: null
+        dates: [09/2001, 09/2003]
+        description: "A l'âge de 13 ans, je commence à développer un fansite communautaire consacré à la série des jeux-vidéo Zelda. J'ai géré Zelda-Boss pendant deux ans."
+        technologies: [PHP3, MySQL, HTML4, Notepad, Windows XP]
+formation:
+    -
+        ecole: IP-Formation
+        ville: Paris
+        intitule: Responsable de Projets Informatiques
+        niveau: Bac+3
+        graduation: 2014
+        description: "Pour la première fois, je reçois l'enseignement de thèmes que j'ai connu très tôt. Ceci confirme mon fort intérêt pour le domaine et je valide ainsi mon choix de réorientation"
+    -
+        ecole: Paris 1 Panthéon-Sorbonne
+        ville: Paris
+        intitule: M2 Développement des Ressources Humaines
+        niveau: Bac+5
+        graduation: 2011
+        description: "Ce master me permet de me spécialiser en Ressources Humaines et d'apprendre le droit du travail."
+    -
+        ecole: Sup de Co
+        ville: Montpellier
+        intitule: Bachelor Honors of Business Administration
+        niveau: Bac+4
+        graduation: 2010
+        description: "Ce parcours mêle période de cours et expériences en entreprise et je découvre le monde des Ressources Humaines grâce à mon premier stage."
+    -
+        ecole: Lycée Georges Pompidou
+        ville: Montpellier
+        intitule: Baccalauréat ES spécialité anglais
+        niveau: Bac
+        graduation: 2006
+        description: "J'obtiens mon baccalauréat à 18 ans avec la mention assez bien."

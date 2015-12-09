@@ -1,0 +1,12 @@
+ul#yaml-file input {
+    width: 500px;
+    margin: 5px;
+}
+
+body {
+    padding-bottom: 30px;
+}
+
+.has-feedback .form-control {
+    padding: 6px 12px;
+}
