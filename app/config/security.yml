@@ -1,3 +1,6 @@
+imports:
+  - { resource: 'providers.yml' }
+
 security:
     firewalls:
         secured_area:
@@ -19,12 +22,6 @@ security:
     access_control:
             - { path: /admin, roles: ROLE_ADMIN }
             - { path: /, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
-    providers:
-            in_memory:
-                 memory:
-                    users:
-                        test:  { password: test, roles: 'ROLE_ADMIN' }
 
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
