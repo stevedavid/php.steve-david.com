@@ -14,7 +14,7 @@
             <div class="box-body no-padding">
                 <div class="mailbox-read-info">
                     <h3>{{ message.sujet }}</h3>
-                    <h5>De: {{ message.email }} <span class="mailbox-read-time pull-right">{{ message.date|date('d/m/Y à H:i:s') }}</span></h5>
+                    <h5>De: {{ message.name }} ({{ message.email }}) <span class="mailbox-read-time pull-right">{{ message.date|date('d/m/Y à H:i:s') }}</span></h5>
                 </div><!-- /.mailbox-read-info -->
                 <div class="mailbox-controls with-border text-center">
                     <a class="btn btn-default btn-sm" data-toggle="tooltip" title="{% if message.corbeille %}Restaurer{% else %}Supprimer{% endif %}" href="{{ path('admin_message_supprimer', {id: id}) }}">
@@ -26,7 +26,7 @@
                     </a>
                 </div><!-- /.mailbox-controls -->
                 <div class="mailbox-read-message">
-                    <p>{{ message.message }}</p>
+                    <p>{{ message.message|nl2br }}</p>
                 </div><!-- /.mailbox-read-message -->
             </div><!-- /.box-body -->
             <div class="box-footer">

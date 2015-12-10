@@ -25,30 +25,35 @@ class CalendrierController extends Controller implements Core
     {
         $evenements = is_null($this->fetchEvenements()) ? [] : $this->fetchEvenements();
 
-        $evenements = array_filter($evenements, function($evenement) {
-            return is_null($evenement['start']) && is_null($evenement['end']);
+        $evenementsNotSet = array_filter($evenements, function($evenement) {
+            return !$evenement['on_calendar'];
         });
 
-
+        $evenementsSet = array_filter($evenements, function($evenement) {
+            return $evenement['on_calendar'];
+        });
 
         return $this->render('views/admin/calendrier/index.html.twig', [
-            'evenements' => $evenements,
+            'evenements_not_set' => array_reverse($evenementsNotSet, true),
+            'evenements'         => $evenementsSet,
+
         ]);
     }
 
     /**
-     * @Route("/calendrier/evenement/creer", name="admin_calendrier_creer-evenement")
+     * @Route("/calendrier/evenement/creer", name="admin_calendrier_creer")
      */
-    public function creerEvenementAction(Request $request)
+    public function creerAction(Request $request)
     {
         if($request->isXmlHttpRequest()) {
             $request = $request->request;
 
             $evenement = [
-                'title' => $request->get('titre'),
-                'color' => $request->get('couleur'),
-                'start'  => null,
-                'end'  => null,
+                'title'         => $request->get('titre'),
+                'color'         => $request->get('couleur'),
+                'start'         => \DateTime::createFromFormat('H:i', $request->get('debut'))->format('H:i:s'),
+                'end'           => \DateTime::createFromFormat('H:i', $request->get('fin'))->format('H:i:s'),
+                'on_calendar'   => (int) false,
             ];
 
             $yamlManager = $this->get(self::YAML_MANAGER);
@@ -63,6 +68,15 @@ class CalendrierController extends Controller implements Core
         }
 
         return new Response(null, 405);
+    }
+
+
+    /**
+     * @Route("/calendrier/evenement/inserer", name="admin_calendrier_inserer")
+     */
+    public function insererAction(Request $request)
+    {
+
     }
 
     private function fetchEvenements()

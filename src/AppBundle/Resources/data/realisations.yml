@@ -7,27 +7,12 @@
     popup:
         name: Zelda-Boss
         image: zb.png
-        why: J'ai monté mon premier projet web à 13 ans lorsque je jouais assidument à Zelda. J'ai découvert le langage HTML me permettant d'aider les internautes avec les énigmes de ce jeu. J'ai ensuite appris PHP et MySQL pour ajouter du dynamisme dans la navigation du site.
-        results: Zelda-Boss a d’abord été conçu statiquement puis j’ai ensuite intégré une base de données. Concernant les statistiques, le site regroupait environ 700 visites par jour, possédait 560 messages sur son livre d’or et plus de 1800 membres fidèles.
-        dates: [septembre 2001, septembre 2003]
+        why: 'J''ai monté mon premier projet web à 13 ans lorsque je jouais assidument à Zelda. J''ai découvert le langage HTML me permettant d''aider les internautes avec les énigmes de ce jeu. J''ai ensuite appris PHP et MySQL pour ajouter du dynamisme dans la navigation du site.'
+        results: 'Zelda-Boss a d’abord été conçu statiquement puis j’ai ensuite intégré une base de données. Concernant les statistiques, le site regroupait environ 700 visites par jour, possédait 560 messages sur son livre d’or et plus de 1800 membres fidèles.'
+        dates: ['septembre 2001', 'septembre 2003']
         technologies: [HTML3, PHP3, MySQL]
-        link: Voir le site
-        href: http://www.zelda-boss.com/
--
-    thumbnail:
-        name: UKOH DB
-        category: prof
-        type: SGBDR
-        image: ukoh.png
-    popup:
-        name: UKOH DB
-        image: ukoh.png
-        why: Toute la gestion du cabinet de recrutement était faite sur des feuilles Excel, résultant ainsi en tableaux de plusieurs milliers de lignes pour plus de cent colonnes. Les documents était réalisés en faisant des copier-coller.
-        results: S'en est ensuivi une fluidification de la gestion du recrutement. Tous les contrats et les salariés sont gérés par une interface bien plus intuitive. La production s'en est retrouvée accrue.
-        dates: [décembre 2008, mars 2009]
-        technologies: [Access, VBA]
-        link: Télécharger le PDF
-        href: "#"
+        link: 'Voir le site'
+        href: 'http://www.zelda-boss.com/'
 -
     thumbnail:
         name: JDLI
@@ -37,12 +22,12 @@
     popup:
         name: JDLI
         image: jdli.png
-        why: "J'ai repris ce projet lorsque je suis arrivé à Microscoop. Une bonne partie du front-office avait été déjà réalisé et j'ai dû me charger de la conception du back-office du site. Ce fut ma première immersion dans le langage objet de PHP."
-        results: "En septembre est donc sortie une nouvelle version du site du Journal des Loisirs Interactifs et les rédacteurs ont pu évoluer sur un back-office plus intuitif et user-friendly."
-        dates: [avril 2013, septembre 2013]
+        why: 'J''ai repris ce projet lorsque je suis arrivé à Microscoop. Une bonne partie du front-office avait été déjà réalisé et j''ai dû me charger de la conception du back-office du site. Ce fut ma première immersion dans le langage objet de PHP.'
+        results: 'En septembre est donc sortie une nouvelle version du site du Journal des Loisirs Interactifs et les rédacteurs ont pu évoluer sur un back-office plus intuitif et user-friendly.'
+        dates: ['avril 2013', 'septembre 2013']
         technologies: [PHP5.2, HTML5, CSS3, MySQL]
-        link: Voir le site
-        href: http://www.jdli.com/
+        link: 'Voir le site'
+        href: 'http://www.jdli.com/'
 -
     thumbnail:
         name: DigitalNews
@@ -52,27 +37,27 @@
     popup:
         name: DigitalNews
         image: dn.png
-        why: "Ce projet est la raison de mon embauche en contrat de professionnalisation. Intel, client de Microscoop, demande une nouvelle version de leur site et je suis en charge de sa réalisation du début à la fin. J'ai donc créé le front-office et l'administration en PHP5 procédural. A travers ce projet, j'ai également découvert jQuery qui m'a reconcilié avec le Javascript."
-        results: "Malheureusement, ce site a dû être fermé et remplacé par une version plus maintenable et évolutive dans un souhait d'expansion du projet pour d'autres territoires."
-        dates: [octobre 2013, mai 2014]
+        why: 'Ce projet est la raison de mon embauche en contrat de professionnalisation. Intel, client de Microscoop, demande une nouvelle version de leur site et je suis en charge de sa réalisation du début à la fin. J''ai donc créé le front-office et l''administration en PHP5 procédural. A travers ce projet, j''ai également découvert jQuery qui m''a reconcilié avec le Javascript.'
+        results: 'Malheureusement, ce site a dû être fermé et remplacé par une version plus maintenable et évolutive dans un souhait d''expansion du projet pour d''autres territoires.'
+        dates: ['octobre 2013', 'mai 2014']
         technologies: [PHP5.4, MySQL, HTML5, CSS3, jQuery]
-        link: Voir le site
-        href: "#"
+        link: 'Voir le site'
+        href: '#'
 -
     thumbnail:
-        name: L'énervée
+        name: 'L''énervée'
         category: perso
         type: blog
         image: lenervee2.png
     popup:
-        name: L'énervée
+        name: 'L''énervée'
         image: lenervee2.png
-        why: "En 2013, une amie m'explique l'une de ses occupations : envoyer des courriers de réclamation humoristiques aux services consommateurs des marques de la grande distribution pour les faire rire. L'idée d'en faire un blog germe alors dans mon esprit."
-        results: "Fin 2015, L'énervée c'est 370 000+ pages vues pour presque 120 000 visites. Le blog a été publié dans <a href='http://www.lemonde.fr/m-styles/article/2015/01/21/l-enervee-ce-blog-qui-ecrit-aux-marques_4560697_4497319.html' target='_blank' class='nice-link'>Le Monde</a> et <a class='nice-link' href='http://lefigaro.fr/conso/2014/12/31/05007-20141231ARTFIG00075-l-enervee-la-consommatrice-qui-titille-les-grandes-marques.php' target='_blank'>Le Figaro</a>."
-        dates: [mai 2014, "aujourd'hui"]
-        technologies: [Wordpress 4.2]
-        link: Voir le blog
-        href: http://lenervee.com/
+        why: 'En 2013, une amie m''explique l''une de ses occupations : envoyer des courriers de réclamation humoristiques aux services consommateurs des marques de la grande distribution pour les faire rire. L''idée d''en faire un blog germe alors dans mon esprit.'
+        results: 'Fin 2015, L''énervée c''est 370 000+ pages vues pour presque 120 000 visites. Le blog a été publié dans <a href=''http://www.lemonde.fr/m-styles/article/2015/01/21/l-enervee-ce-blog-qui-ecrit-aux-marques_4560697_4497319.html'' target=''_blank'' class=''nice-link''>Le Monde</a> et <a class=''nice-link'' href=''http://lefigaro.fr/conso/2014/12/31/05007-20141231ARTFIG00075-l-enervee-la-consommatrice-qui-titille-les-grandes-marques.php'' target=''_blank''>Le Figaro</a>.'
+        dates: ['mai 2014', 'aujourd''hui']
+        technologies: ['Wordpress 4.2']
+        link: 'Voir le blog'
+        href: 'http://lenervee.com/'
 -
     thumbnail:
         name: Societe.com
@@ -80,14 +65,14 @@
         type: Back-Office
         image: bo1.png
     popup:
-        name: Back-Office de Societe.com
+        name: 'Back-Office de Societe.com'
         image: bo1.png
-        why: "Le gestionnaire de Societe.com était réalisé au fil de l'eau et dans l'urgence en mélant plusieurs langages (Python, C, Perl). L'interface n'était pas intuitive et manquait clairement d'ergonomie."
-        results: "Le nouveau Back-Office permet dorénavant de traiter les requêtes clientes, de consulter les statistiques des ventes et gérer les comptes utilisateurs sur le site. Il permet un meilleur suivi des demandes et rend la gestion de l'entreprise facilitée."
-        dates: [juillet 2014, décembre 2014]
+        why: 'Le gestionnaire de Societe.com était réalisé au fil de l''eau et dans l''urgence en mélant plusieurs langages (Python, C, Perl). L''interface n''était pas intuitive et manquait clairement d''ergonomie.'
+        results: 'Le nouveau Back-Office permet dorénavant de traiter les requêtes clientes, de consulter les statistiques des ventes et gérer les comptes utilisateurs sur le site. Il permet un meilleur suivi des demandes et rend la gestion de l''entreprise facilitée.'
+        dates: ['juillet 2014', 'décembre 2014']
         technologies: [PHP5.4, ZF1.12, MySQL, HTML5, CSS3, jQuery]
-        link: Voir le site
-        href: "#"
+        link: 'Voir le site'
+        href: '#'
 -
     thumbnail:
         name: Kbis-extrait
@@ -97,24 +82,39 @@
     popup:
         name: Kbis-extrait.fr
         image: kbis.png
-        why: "En 2015, l'entreprise M&Co décide de se lancer sur le marché de la vente en ligne d'extraits Kbis via un site entièrement dédié."
-        results: "Trois mois plus tard, je livre ce projet réalisé entièrement en Symfony2. L'application devant requérir un ETP, je réussis à automatiser les tâches d'achats d'extraits Kbis sur un site distant. La réception et l'envoi des Kbis aux clients se fait également de manière automatique. Je permets donc à l'entreprise de réaliser des économies substantielles et de réaliser une marge confortable."
-        dates: [février 2015, avril 2015]
+        why: 'En 2015, l''entreprise M&Co décide de se lancer sur le marché de la vente en ligne d''extraits Kbis via un site entièrement dédié.'
+        results: 'Trois mois plus tard, je livre ce projet réalisé entièrement en Symfony2. L''application devant requérir un ETP, je réussis à automatiser les tâches d''achats d''extraits Kbis sur un site distant. La réception et l''envoi des Kbis aux clients se fait également de manière automatique. Je permets donc à l''entreprise de réaliser des économies substantielles et de réaliser une marge confortable.'
+        dates: ['février 2015', 'avril 2015']
         technologies: [PHP5.6, Symfony2.6, MySQL, HTML5, CSS3, jQuery]
-        link: Voir le site
-        href: https://kbis-extrait.fr/
+        link: 'Voir le site'
+        href: 'https://kbis-extrait.fr/'
 -
     thumbnail:
-        name: Sandra DAVID
+        name: 'Sandra DAVID'
         category: perso
         type: site
         image: sandradavid.png
     popup:
         name: Sandra-DAVID.com
         image: sandradavid.png
-        why: "En août 2015, je propose à ma soeur de refaire son site internet qui n'avait pas été pensé dans un esprit de maintenabilité et d'ergonomie. J'emploie ainsi mon framework de prédilection Symfony2 et développe ce projet en 3 semaines (Back-Office compris)."
-        results: "Le site permet une gestion accrue des données et le design a été repensé. Le Back-Office fait état des statistiques de visites et est clairement plus efficace."
-        dates: [août 2015]
+        why: 'En août 2015, je propose à ma soeur de refaire son site internet qui n''avait pas été pensé dans un esprit de maintenabilité et d''ergonomie. J''emploie ainsi mon framework de prédilection Symfony2 et développe ce projet en 3 semaines (Back-Office compris).'
+        results: 'Le site permet une gestion accrue des données et le design a été repensé. Le Back-Office fait état des statistiques de visites et est clairement plus efficace.'
+        dates: ['août 2015']
         technologies: [PHP5.6, Symfony2.7, MySQL, HTML5, CSS3, jQuery]
-        link: Voir le site
-        href: http://www.sandra-david.com/
+        link: 'Voir le site'
+        href: 'http://www.sandra-david.com/'
+-
+    thumbnail:
+        name: 'Steve David'
+        category: perso
+        type: site
+        image: stevedavid.png
+    popup:
+        name: Steve-David.com
+        image: stevedavid.png
+        why: 'En novembre 2015, Symfony3 sort. Je m''intéresse immédiatement à cette nouvelle version en tant que microframework. Ayant toujours voulu utiliser SF pour mon site personnel quoi qu''un peu rebuté par la lourdeur du framework, je suis immédiatement séduit par cette fonctionnalité.'
+        results: 'Le site dispose maintenant d''une administration me permettant d''éditer à la volée toutes les informations stockées dans des fichiers YAML. J''intègre également un calendrier pour gérer mes rendez-vous ainsi qu''une interface de gestion des messages reçus via le formulaire de contact. Le code est également disponible sur <a href="https://github.com/stevedavid/steve-david.com/" target="_blank">GitHub</a>.'
+        dates: ['novembre 2015', 'décembre 2015']
+        technologies: [PHP5.6, MySQL, Symfony3, jQuery]
+        link: 'Voir le site'
+        href: 'http://www.steve-david.com/'

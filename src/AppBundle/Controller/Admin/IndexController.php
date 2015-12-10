@@ -51,6 +51,16 @@ class IndexController extends Controller implements Core
 
     function headerAction()
     {
-        return $this->render('views/admin/partials/header.html.twig');
+        $yamlManager = $this->get(self::YAML_MANAGER);
+
+        $messages = is_null($yamlManager->loadData(self::YML_CONTACT)) ? [] : $yamlManager->loadData(self::YML_CONTACT);
+
+        $unreadMessages = array_filter($messages, function($message) {
+            return !$message['lu'];
+        });
+
+        return $this->render('views/admin/partials/header.html.twig', [
+            'messages' => $unreadMessages,
+        ]);
     }
 }

@@ -14,6 +14,9 @@
                 <div class="box-body">
                     <!-- the events -->
                     <div id="external-events">
+                        {% for key, evenement in evenements_not_set %}
+                            <div class="external-event" data-start="{{ evenement.start }}" data-end="{{ evenement.end }}" data-id="{{ key }}" style="color: white;background-color: {{ evenement.color }}">{{ evenement.title }}</div>
+                        {% endfor %}
                     </div>
                 </div><!-- /.box-body -->
             </div><!-- /. box -->
@@ -23,8 +26,7 @@
                 </div>
                 <div class="box-body">
                     <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-                        <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
-                        <ul class="fc-color-picker" id="color-chooser">
+                        <ul class="fc-color-picker" id="color-chooser" style="text-align: center;">
                             <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
                             <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li>
                             <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
@@ -35,8 +37,19 @@
                             <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
                         </ul>
                     </div><!-- /btn-group -->
-                    <div class="input-group">
-                        <input id="new-event" type="text" class="form-control" placeholder="Evénement">
+                    <div class="input-group form-inline">
+                        <div class="col-xs-12">
+                            <input id="new-event" type="text" class="form-control" placeholder="Evénement"/>
+                        </div>
+                        <div class="col-xs-5">
+                            <input id="new-event-start" type="text" class="form-control text-center" placeholder="12:00"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <input rel="tooltip" data-placement="bottom" title="Toute la journée" type="checkbox" id="new-event-allday" style="margin-top: 10px"/>
+                        </div>
+                        <div class="col-xs-5">
+                            <input id="new-event-end" type="text" class="form-control text-center" placeholder="24:00"/>
+                        </div>
                         <div class="input-group-btn">
                             <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Ajouter</button>
                         </div><!-- /btn-group -->
@@ -60,15 +73,25 @@
     <script src="/admin/plugins/fullcalendar/fullcalendar-fr.min.js" type="text/javascript"></script>
     <script>
         jQuery(function($) {
-
+            $('#new-event-allday').on('change', function() {
+                if($(this).is(':checked')) {
+                    $('#new-event-start, #new-event-end').attr('disabled', 'disabled');
+                } else {
+                    $('#new-event-start, #new-event-end').removeAttr('disabled');
+                }
+            });
             function ini_events(ele) {
                 ele.each(function () {
 
                     // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
                     // it doesn't need to have a start or end
                     var eventObject = {
-                        title: $.trim($(this).text()) // use the element's text as the event title
+                        title: $.trim($(this).text()), // use the element's text as the event
+                        starts: $(this).data('start'),
+                        ends: $(this).data('end')
                     };
+
+                    console.log(eventObject);
 
                     // store the Event Object in the DOM element so we can get to it later
                     $(this).data('eventObject', eventObject);
@@ -111,23 +134,22 @@
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar !!!
                 drop: function (date, allDay) { // this function is called when something is dropped
-
+                    console.log(date);
                     // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');
-
+                    var start = moment(date).add(15, 'hours');
                     // we need to copy it, so that multiple events don't have a reference to the same object
                     var copiedEventObject = $.extend({}, originalEventObject);
-
                     // assign it the date that was reported
-                    copiedEventObject.start = date;
-                    copiedEventObject.allDay = allDay;
+                    copiedEventObject.start = start;
+//                    copiedEventObject.allDay = allDay;
                     copiedEventObject.backgroundColor = $(this).css("background-color");
                     copiedEventObject.borderColor = $(this).css("border-color");
 
                     // render the event on the calendar
                     // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                     $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
+                    console.log('dropped');
                     // remove the element from the "Draggable Events" list
                     $(this).remove();
 
@@ -148,7 +170,11 @@
             $("#add-new-event").click(function (e) {
                 e.preventDefault();
                 //Get value and make sure it is not null
-                var val = $("#new-event").val();
+                var val = $("#new-event").val()
+                , start = $('#new-event-start').val()
+                , end = $('#new-event-end').val()
+                ;
+
                 if (val.length == 0) {
                     return;
                 }
@@ -156,10 +182,12 @@
                 var data = {
                         'titre': val,
                         'couleur': currColor,
+                        'debut': start,
+                        'fin': end,
                 };
 
                 $.ajax({
-                    url: '{{ path('admin_calendrier_creer-evenement') }}',
+                    url: '{{ path('admin_calendrier_creer') }}',
                     method: 'post',
                     data: data,
                     success: function() {
@@ -167,6 +195,10 @@
                         $event
                                 .css({"background-color": currColor, "color": "#fff"})
                                 .addClass("external-event")
+                                .data({
+                                    'start': data.start,
+                                    'end': data.end
+                                })
                                 .html(val);
                         $('#external-events').prepend($event.hide().fadeIn('slow'));
 

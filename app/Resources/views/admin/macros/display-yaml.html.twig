@@ -25,6 +25,7 @@
                     <strong class="yaml-key hidden">{{ key }}</strong>
                 {% endif %}
                 <div class="form-group has-feedback">
+                    {% if yaml  %}
                     <input type="text" class="form-control" value="{{ yaml }}"/>
                 </div>
                 {% if key matches '/^\\d+$/' %}

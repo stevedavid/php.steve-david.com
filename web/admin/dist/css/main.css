@@ -18,3 +18,12 @@ body {
 .message-unread {
     font-weight: bold;
 }
+
+#color-chooser {
+    display: flex;
+    justify-content: center;
+}
+
+#color-chooser > li {
+    display: inline-block;
+}

@@ -60,8 +60,8 @@ class AjaxController extends Controller implements Core
         }
 
         $message['date']        = (new \DateTime)->format('Y-m-d H:i:s');
-        $message['lu']          = 0;
-        $message['corbeille']   = 0;
+        $message['lu']          = (int) false;
+        $message['corbeille']   = (int) false;
 
         $this->saveYaml($message);
 
