@@ -1,4 +1,4 @@
-ul#yaml-file input {
+ul#yaml-file input[type=text] {
     width: 750px;
     margin: 5px;
 }

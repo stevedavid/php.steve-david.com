@@ -3,6 +3,7 @@
 /app/logs
 !app/cache/.gitkeep
 !app/logs/.gitkeep
+/app/config/providers.yml
 
 # PhpStorm
 /.idea

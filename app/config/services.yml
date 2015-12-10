@@ -1,3 +1,7 @@
 services:
     yamlManager:
         class:        AppBundle\Service\YamlManager
+    ofExtension:
+            class: AppBundle\Twig\Extension\ofExtension
+            tags:
+                - {name: twig.extension}

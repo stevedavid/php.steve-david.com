@@ -60,6 +60,10 @@ class FrontController extends Controller implements Core
     {
         $realisations = $this->get(self::YAML_MANAGER)->loadData(self::YML_REALISATIONS);
 
+        $realisations = array_filter($realisations, function($realisation) {
+            return $realisation['thumbnail']['visible'] === 'true';
+        });
+
         return $this->render('views/partials/realisations.html.twig', [
             'realisations' => array_reverse($realisations),
         ]);

@@ -25,8 +25,11 @@
                     <strong class="yaml-key hidden">{{ key }}</strong>
                 {% endif %}
                 <div class="form-group has-feedback">
-                    {% if yaml  %}
-                    <input type="text" class="form-control" value="{{ yaml }}"/>
+                    {% if yaml is of('bool') %}
+                        <input type="checkbox" {% if yaml == 'true' %}checked="checked"{% endif %}/>
+                    {% else %}
+                        <input type="text" class="form-control" value="{{ yaml }}"/>
+                    {% endif %}
                 </div>
                 {% if key matches '/^\\d+$/' %}
                     <div class="btn-group">

@@ -55,13 +55,16 @@
                     console.log($.isNumeric($(this).find('> .yaml-key').text()));
                     var key = $.isNumeric($(this).find('> .yaml-key').text()) ? i : $(this).find('> .yaml-key').text()
                         , $ul = $(this).find('> ul')
-                        , $input = $(this).find('> .form-group > input')
+                        , $input = $(this).find('> .form-group > input[type=text]')
+                        , $checkbox = $(this).find('> .form-group > input[type=checkbox]')
                     ;
                     console.log('key ==> ' + key);
-                    if(!$input.length) {
+                    if($ul.length) {
                         innerYaml[key] = storeYaml($ul.find('> li'));
-                    } else if(!$ul.length) {
+                    } else if($input.length) {
                         innerYaml[key] = $input.val();
+                    } else if ($checkbox.length) {
+                        innerYaml[key] = $checkbox.is(':checked') ? true : false;
                     }
                     yaml = innerYaml;
                 });

@@ -4,6 +4,7 @@
         category: perso
         type: site
         image: zb.png
+        visible: 'true'
     popup:
         name: Zelda-Boss
         image: zb.png
@@ -15,10 +16,27 @@
         href: 'http://www.zelda-boss.com/'
 -
     thumbnail:
+        name: 'UKOH DB'
+        category: prof
+        type: SGBDR
+        image: ukoh.png
+        visible: 'false'
+    popup:
+        name: 'UKOH DB'
+        image: ukoh.png
+        why: 'Toute la gestion du cabinet de recrutement était faite sur des feuilles Excel, résultant ainsi en tableaux de plusieurs milliers de lignes pour plus de cent colonnes. Les documents était réalisés en faisant des copier-coller.'
+        results: 'S''en est ensuivi une fluidification de la gestion du recrutement. Tous les contrats et les salariés sont gérés par une interface bien plus intuitive. La production s''en est retrouvée accrue.'
+        dates: ['décembre 2008', 'mars 2009']
+        technologies: [Access, VBA]
+        link: 'Télécharger le PDF'
+        href: '#'
+-
+    thumbnail:
         name: JDLI
         category: prof
         type: site
         image: jdli.png
+        visible: 'true'
     popup:
         name: JDLI
         image: jdli.png
@@ -34,6 +52,7 @@
         category: prof
         type: site
         image: dn.png
+        visible: 'true'
     popup:
         name: DigitalNews
         image: dn.png
@@ -42,13 +61,14 @@
         dates: ['octobre 2013', 'mai 2014']
         technologies: [PHP5.4, MySQL, HTML5, CSS3, jQuery]
         link: 'Voir le site'
-        href: '#'
+        visible: 'true'
 -
     thumbnail:
         name: 'L''énervée'
         category: perso
         type: blog
         image: lenervee2.png
+        visible: 'true'
     popup:
         name: 'L''énervée'
         image: lenervee2.png
@@ -64,6 +84,7 @@
         category: prof
         type: Back-Office
         image: bo1.png
+        visible: 'true'
     popup:
         name: 'Back-Office de Societe.com'
         image: bo1.png
@@ -79,6 +100,7 @@
         category: prof
         type: site
         image: kbis.png
+        visible: 'true'
     popup:
         name: Kbis-extrait.fr
         image: kbis.png
@@ -94,6 +116,7 @@
         category: perso
         type: site
         image: sandradavid.png
+        visible: 'true'
     popup:
         name: Sandra-DAVID.com
         image: sandradavid.png
@@ -109,6 +132,7 @@
         category: perso
         type: site
         image: stevedavid.png
+        visible: 'true'
     popup:
         name: Steve-David.com
         image: stevedavid.png
