@@ -23,7 +23,7 @@ class CalendrierController extends Controller implements Core
      */
     public function indexAction()
     {
-        $evenements = is_null($this->fetchEvenements()) ? [] : $this->fetchEvenements();
+        $evenements = $this->fetchEvenements();
 
         $evenementsNotSet = array_filter($evenements, function($evenement) {
             return !$evenement['on_calendar'];
@@ -76,11 +76,28 @@ class CalendrierController extends Controller implements Core
      */
     public function insererAction(Request $request)
     {
+        $yamlManager = $this->get(self::YAML_MANAGER);
+        $id = $request->request->get('id');
+        $start = $request->request->get('start');
+        $end = $request->request->get('end');
+        var_dump($end);
+        $datetime = \DateTime::createFromFormat('Y-m-d H:i:s', $start);
+        $evenements = $this->fetchEvenements();
+
+        $evenements[$id]['on_calendar'] = (int) true;
+        $evenements[$id]['start'] = $start;
+        $evenements[$id]['end'] = \DateTime::createFromFormat('H:i:s', $end)
+                                    ->setDate($datetime->format('Y'), $datetime->format('m'), $datetime->format('d'))
+                                    ->format('Y-m-d H:i:s')
+        ;
+        $yamlManager->saveData($yamlManager->locateFile(self::YML_CALENDRIER), $evenements);
+
+        exit;
 
     }
 
     private function fetchEvenements()
     {
-        return $this->get(self::YAML_MANAGER)->loadData(self::YML_CALENDRIER);
+        return $this->get(self::YAML_MANAGER)->loadData(self::YML_CALENDRIER) ?: [];
     }
 }

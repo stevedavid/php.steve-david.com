@@ -27,3 +27,7 @@ body {
 #color-chooser > li {
     display: inline-block;
 }
+
+#external-events i.delete-event {
+    cursor: pointer;
+}

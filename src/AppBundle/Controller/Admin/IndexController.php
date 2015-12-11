@@ -54,13 +54,21 @@ class IndexController extends Controller implements Core
         $yamlManager = $this->get(self::YAML_MANAGER);
 
         $messages = is_null($yamlManager->loadData(self::YML_CONTACT)) ? [] : $yamlManager->loadData(self::YML_CONTACT);
-
-        $unreadMessages = array_filter($messages, function($message) {
+        $messages = array_filter($messages, function($message) {
             return !$message['lu'];
         });
 
+        $evenements = is_null($yamlManager->loadData(self::YML_CALENDRIER)) ? [] : $yamlManager->loadData(self::YML_CALENDRIER);
+        $evenements = array_filter($evenements, function($evenement) {
+            if($evenement['on_calendar']) {
+                return \DateTime::createFromFormat('Y-m-d H:i:s', $evenement['start'])->format('Y-m-d') == (new \DateTime)->format('Y-m-d');
+            }
+        });
+
+
         return $this->render('views/admin/partials/header.html.twig', [
-            'messages' => $unreadMessages,
+            'messages' => $messages,
+            'evenements' => $evenements,
         ]);
     }
 }

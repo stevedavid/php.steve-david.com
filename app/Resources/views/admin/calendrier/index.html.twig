@@ -15,7 +15,10 @@
                     <!-- the events -->
                     <div id="external-events">
                         {% for key, evenement in evenements_not_set %}
-                            <div class="external-event" data-start="{{ evenement.start }}" data-end="{{ evenement.end }}" data-id="{{ key }}" style="color: white;background-color: {{ evenement.color }}">{{ evenement.title }}</div>
+                            <div rel="tooltip" title="de {{ evenement.start|date('H:i') }} à {{ evenement.end|date('H:i') }}" data-placement="right" class="external-event" data-start="{{ evenement.start }}" data-end="{{ evenement.end }}" data-id="{{ key }}" style="color: white;background-color: {{ evenement.color }}">
+                                {{ evenement.title }}
+                                <span class="pull-right"><i class="fa fa-times delete-event"></i></span>
+                            </div>
                         {% endfor %}
                     </div>
                 </div><!-- /.box-body -->
@@ -80,6 +83,13 @@
                     $('#new-event-start, #new-event-end').removeAttr('disabled');
                 }
             });
+
+            $('#external-events').on('click', 'i.delete-event', function() {
+                $(this).closest('.external-event').fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            });
+
             function ini_events(ele) {
                 ele.each(function () {
 
@@ -123,13 +133,15 @@
                 },
                 //Random default events
                 events: [
+                    {% for evenement in evenements %}
                     {
-                        title: 'Long Event',
-                        start: new Date(y, m, d - 5),
-                        end: new Date(y, m, d - 2),
-                        backgroundColor: "#f39c12", //yellow
-                        borderColor: "#f39c12" //yellow
+                        title: '{{ evenement.title }}',
+                        start: new Date({{ evenement.start|date('Y') }}, {{ evenement.start|date('m') - 1 }}, {{ evenement.start|date('d') }}, {{ evenement.start|date('H') }}, {{ evenement.start|date('i') }}, {{ evenement.start|date('s') }}),
+                        end: new Date({{ evenement.end|date('Y') }}, {{ evenement.end|date('m') - 1 }}, {{ evenement.end|date('d') }}, {{ evenement.end|date('H') }}, {{ evenement.end|date('i') }}, {{ evenement.end|date('s') }}),
+                        backgroundColor: '{{ evenement.color }}', //yellow
+                        borderColor: '{{ evenement.color }}' //yellow
                     },
+                    {% endfor %}
                 ],
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar !!!
@@ -137,18 +149,33 @@
                     console.log(date);
                     // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');
-                    var start = moment(date).add(15, 'hours');
+                    var id = $(this).data('id');
+                    //var start = moment(date).add(15, 'hours');
                     // we need to copy it, so that multiple events don't have a reference to the same object
                     var copiedEventObject = $.extend({}, originalEventObject);
                     // assign it the date that was reported
-                    copiedEventObject.start = start;
+                    copiedEventObject.start = date;
+                    var end = $(this).data('end');
+                    console.log(end);
 //                    copiedEventObject.allDay = allDay;
                     copiedEventObject.backgroundColor = $(this).css("background-color");
                     copiedEventObject.borderColor = $(this).css("border-color");
 
+                    $.ajax({
+                        url: '{{ path('admin_calendrier_inserer') }}',
+                        method: 'post',
+                        data: {id: id, start: date.format('YYYY-MM-DD HH:mm:ss'), end: end},
+                        success: function() {
+                            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                        },
+                        error: function() {
+                            console.log('XHR error');
+                        }
+                    });
+
                     // render the event on the calendar
                     // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
                     console.log('dropped');
                     // remove the element from the "Draggable Events" list
                     $(this).remove();
@@ -196,10 +223,15 @@
                                 .css({"background-color": currColor, "color": "#fff"})
                                 .addClass("external-event")
                                 .data({
+                                    'placement': 'right',
                                     'start': data.start,
                                     'end': data.end
                                 })
-                                .html(val);
+                                .html(val + '<span class="pull-right"><i class="fa fa-times delete-event"></i></span>')
+                                .attr({
+                                    'rel': 'tooltip',
+                                    'title': 'de ' + start + ' à ' + end
+                                });
                         $('#external-events').prepend($event.hide().fadeIn('slow'));
 
                         //Add draggable functionality
