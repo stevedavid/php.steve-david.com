@@ -20,51 +20,45 @@ class MicroKernel extends Kernel
             new AppBundle\AppBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
+            new Symfony\Bundle\MonologBundle\MonologBundle(),
+            // new FOS\UserBundle\FOSUserBundle(),
         ];
 
-        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
+//        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-        }
+//        }
 
         return $bundles;
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
-        $routes->mount('/_wdt', $routes->import('@WebProfilerBundle/Resources/config/routing/wdt.xml'));
-        $routes->mount('/_profiler', $routes->import('@WebProfilerBundle/Resources/config/routing/profiler.xml'));
+        $routes->import('@AppBundle', '/', 'annotation');
 
-        $routes->mount('/', $routes->import('@AppBundle', 'annotation'));
+//        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
+             $routes->import('@WebProfilerBundle/Resources/config/routing/wdt.xml', '/_wdt');
+             $routes->import('@WebProfilerBundle/Resources/config/routing/profiler.xml', '/_profiler');
+//        }
     }
 
     protected function configureContainer(ContainerBuilder $c, LoaderInterface $loader)
     {
-        $c
-            ->loadFromExtension('framework', [
-                'secret' => 'b16d6e5efe6200958bf330417500971d1ae7f871',
-                'form' => null,
-                'profiler' => null,
-                'translator' => [
-                    'fallback' => 'fr',
-                ],
-                'templating' => [
-                    'engines' => ['twig']
-            ],
-        ])
-            ->loadFromExtension('web_profiler', [
-                'toolbar' => true,
-                'position' => 'bottom',
-            ])
+//        $c
+//            ->loadFromExtension('fos_user', [
+//                'db_driver' => 'orm',
+//                'firewall_name' => 'secured_area',
+//                'user_class' => 'AppBundle\Entity\User',
+//            ]);
 //            ->loadFromExtension('swiftmailer', [
 //                'transport', 'mail',
 //                'host' => null,
 //                'username' => null,
 //                'password' => null,
 //            ])
-        ;
+//      ;
 
         // $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
-        $loader->load(__DIR__.'/config/services.yml');
-        $loader->load(__DIR__.'/config/security.yml');
+        $loader->load(__DIR__.'/config/config_' . $this->getEnvironment() . '.yml');
+//        $loader->load(__DIR__.'/config/routing_' . $this->getEnvironment() . '.yml');
     }
 }

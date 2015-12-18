@@ -31,3 +31,8 @@ body {
 #external-events i.delete-event {
     cursor: pointer;
 }
+
+.sidebar-menu li.header {
+    text-transform: uppercase;
+}
+

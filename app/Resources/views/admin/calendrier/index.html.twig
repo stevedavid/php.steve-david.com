@@ -14,8 +14,8 @@
                 <div class="box-body">
                     <!-- the events -->
                     <div id="external-events">
-                        {% for key, evenement in evenements_not_set %}
-                            <div rel="tooltip" title="de {{ evenement.start|date('H:i') }} à {{ evenement.end|date('H:i') }}" data-placement="right" class="external-event" data-start="{{ evenement.start }}" data-end="{{ evenement.end }}" data-id="{{ key }}" style="color: white;background-color: {{ evenement.color }}">
+                        {% for evenement in evenements_not_set %}
+                            <div rel="tooltip" title="de {{ evenement.start|date('H:i') }} à {{ evenement.end|date('H:i') }}" data-placement="right" class="external-event" data-start="{{ evenement.start }}" data-end="{{ evenement.end }}" data-id="{{ evenement.id }}" style="color: white;background-color: {{ evenement.color }}">
                                 {{ evenement.title }}
                                 <span class="pull-right"><i class="fa fa-times delete-event"></i></span>
                             </div>
@@ -85,8 +85,22 @@
             });
 
             $('#external-events').on('click', 'i.delete-event', function() {
-                $(this).closest('.external-event').fadeOut('slow', function() {
-                    $(this).remove();
+                var data = {
+                    id: $(this).closest('.external-event').data('id')
+                };
+                $this = $(this);
+                $.ajax({
+                    url: '{{ path('admin_calendrier_supprimer') }}',
+                    method: 'post',
+                    data: data,
+                    success: function() {
+                        $this.closest('.external-event').fadeOut('slow', function() {
+                            $this.remove();
+                        });
+                    },
+                    error: function() {
+
+                    }
                 });
             });
 
@@ -146,7 +160,7 @@
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar !!!
                 drop: function (date, allDay) { // this function is called when something is dropped
-                    console.log(date);
+                    var $this = $(this);
                     // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');
                     var id = $(this).data('id');
@@ -167,6 +181,7 @@
                         data: {id: id, start: date.format('YYYY-MM-DD HH:mm:ss'), end: end},
                         success: function() {
                             $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                            $this.remove();
 
                         },
                         error: function() {
@@ -176,9 +191,8 @@
 
                     // render the event on the calendar
                     // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                    console.log('dropped');
                     // remove the element from the "Draggable Events" list
-                    $(this).remove();
+
 
                 }
             });

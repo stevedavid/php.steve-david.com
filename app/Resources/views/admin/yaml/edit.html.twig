@@ -12,10 +12,10 @@
             </ul>
         </div>
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 text-right">
         <button class="btn btn-success" id="sauvegarder-yaml">Sauvegarder</button>
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 text-left">
         <button class="btn btn-danger" id="annuler-yaml">Annuler</button>
     </div>
 {% endblock %}
@@ -50,15 +50,12 @@
             var yaml = {};
             var storeYaml = function storeYaml($lis) {
                 var innerYaml = {};
-                console.log('function called');
                 $lis.each(function(i) {
-                    console.log($.isNumeric($(this).find('> .yaml-key').text()));
                     var key = $.isNumeric($(this).find('> .yaml-key').text()) ? i : $(this).find('> .yaml-key').text()
                         , $ul = $(this).find('> ul')
                         , $input = $(this).find('> .form-group > input[type=text]')
                         , $checkbox = $(this).find('> .form-group > input[type=checkbox]')
                     ;
-                    console.log('key ==> ' + key);
                     if($ul.length) {
                         innerYaml[key] = storeYaml($ul.find('> li'));
                     } else if($input.length) {
@@ -72,26 +69,27 @@
             };
 
             $('#sauvegarder-yaml').on('click', function() {
-                console.log($('#yaml-file').html());
-                $(this).attr('disabled', 'disabled');
-                console.log($yaml.find('> li'));
+                $button = $(this);
                 var yaml = storeYaml($('#yaml-file').find('> li'));
-                console.log(yaml);
                 $.ajax({
                     url: '{{ path('admin_yaml_save', {ymlFile: file}) }}',
                     method: 'post',
                     data: {yaml: yaml},
                     success: function() {
-                        $yaml.find('.form-group').removeClass('has-error').addClass('has-success');
+                        $yaml
+                            .find('.form-group')
+                            .removeClass('has-error')
+                            .addClass('has-success')
+                            .find('input, checkbox')
+                            .attr('disabled', 'disabled')
+                        ;
+                        $button.attr('disabled', 'disabled');
+
                     },
                     error: function() {
                         $yaml.find('.form-group').removeClass('has-success').addClass('has-error');
                     }
                 });
-            }).on('blur', function() {
-                if($(this).is(':disabled')) {
-                    $(this).removeAttr('disabled');
-                }
             });
 
 

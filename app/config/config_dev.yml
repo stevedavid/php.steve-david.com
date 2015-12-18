@@ -1,0 +1,12 @@
+imports:
+    - { resource: config.yml }
+
+framework:
+    profiler:
+        only_exceptions: false
+        enabled: true
+        dsn: file:%kernel.cache_dir%/profiler/
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false

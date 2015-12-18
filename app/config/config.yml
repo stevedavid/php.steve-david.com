@@ -1,0 +1,19 @@
+imports:
+    - { resource: services.yml }
+    - { resource: 'security.yml' }
+
+framework:
+    secret: b16d6e5efe6200958bf330417500971d1ae7f871
+    form: ~
+    profiler: ~
+    translator:
+        fallback: fr
+    templating:
+        engines: twig
+
+monolog:
+    handlers:
+        main:
+            type: stream
+            level: info
+            path: "%kernel.logs_dir%/%kernel.environment%.log"

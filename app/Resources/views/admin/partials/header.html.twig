@@ -57,38 +57,20 @@
                     {% endif %}
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="header">Vous avez {{ evenements|length }} événement(s) prévu(s) aujourd'hui</li>
+                    <li class="header">Vous avez {{ evenements|length }} événement(s) aujourd'hui</li>
                     <li>
                         <!-- inner menu: contains the actual data -->
                         <ul class="menu">
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-users text-red"></i> 5 new members joined
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-user text-red"></i> You changed your username
-                                </a>
-                            </li>
+                            {% for evenement in evenements %}
+                                <li>
+                                    <a href="{{ path('admin_calendrier_index') }}">
+                                        <i class="fa fa-calendar" style="color: {{ evenement.color }}"></i> <strong>{{ evenement.title }}</strong> à {{ evenement.start|date('H:i') }}
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </li>
-                    <li class="footer"><a href="#">View all</a></li>
+                    <li class="footer"><a href="{{ path('admin_calendrier_index') }}">Voir le calendrier</a></li>
                 </ul>
             </li>
             <!-- User Account: style can be found in dropdown.less -->
