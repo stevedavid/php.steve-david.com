@@ -1,4 +1,4 @@
-﻿
+﻿window.delay = 750;
 
 var $ = jQuery.noConflict();
 
@@ -16,7 +16,7 @@ $(document).ready(function ($) {
                 $('body').css('overflow', 'visible');
             });
 
-        }, 0);
+        }, window.delay);
     } catch (err) {
     }
 
@@ -65,10 +65,10 @@ $(document).ready(function ($) {
             $('html, body').stop().animate({
                 'scrollTop': $target.offset().top
             }, 500, 'swing', function () {
-                // window.location.hash = target;
+                window.location.hash = target;
                 $(document).on("scroll", onScroll);
             });
-                // window.history.pushState({},"", href);
+                window.history.pushState({},"", href);
 
         });
 
@@ -366,7 +366,7 @@ var activeMenu = function(moving_point, element, position) {
     el = element;
     p = position;
 
-    
+
 
     if(p == 5) window.o = '60%';
     $(mp).waypoint(function(d) {
@@ -378,7 +378,6 @@ var activeMenu = function(moving_point, element, position) {
         } else {
             window.o = (d == 'up ' ? '99%' : '0%');
         }
-        console.log(window.o, d, p);
         switch(mp)
         {
             case '#scroll-parcours': l = 'parcours/';
@@ -394,7 +393,7 @@ var activeMenu = function(moving_point, element, position) {
                 break;
         }
         $('.cl-effect-11').removeClass('current');
-        // window.history.pushState({},"", l);
+        window.history.pushState({},"", l);
         $(el).addClass('current');
     }, {offset: window.o, triggerOnce: false});
 }
@@ -402,7 +401,7 @@ var activeMenu = function(moving_point, element, position) {
 var scrollOnLoad = function() {
     setTimeout(function() {
 
-        // window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
         var link, doNot;
         var url = document.URL;
         var split = url.split('/');
@@ -427,7 +426,7 @@ var scrollOnLoad = function() {
             var offsetTop = $('#' + link).offset().top;
             $('html, body').animate({scrollTop: offsetTop}, 1500);
         }
-    }, 2500);
+    }, window.delay);
 };
 
 jQuery(function($) {
@@ -443,7 +442,7 @@ jQuery(function($) {
 
     scrollOnLoad();
 
-        
+
 
     // window.onpopstate = function(e){
     //     if(e.state){
@@ -463,7 +462,7 @@ jQuery(function($) {
             scaleColor: false,
             lineCap: 'square'
         });
-    }); 
+    });
 
     $('#scroll-competences').waypoint(function() {
         (function myLoop(i) {
@@ -473,7 +472,7 @@ jQuery(function($) {
                 });
                 if(++i < 100) myLoop(i);
             }, 62.5);
-        })(1);            
+        })(1);
     }, { offset: '50%', triggerOnce: true });
 
     animateOnScroll('#scroll-realisations', 'figure', 250, 250, 65);
@@ -523,7 +522,7 @@ jQuery(function($) {
                 console.log($clone);
                 $data.remove();
                 $(this).append($clone).find('.data').wrap('<h3>').css('text-transform', 'uppercase');
-                
+
             });
         }
     };

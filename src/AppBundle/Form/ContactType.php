@@ -15,7 +15,6 @@ class ContactType extends AbstractType
             ->add('sujet', null, [
                 'required' => false,
                 'attr' => [
-                    'value' => 'Kikoo',
                     'placeholder' => 'Votre sujet',
                     'class' => 'input-contact form-control',
                 ],
@@ -23,7 +22,6 @@ class ContactType extends AbstractType
             ->add('nom', null, [
                 'required' => false,
                 'attr' => [
-                    'value' => 'Kikoo',
                     'placeholder' => 'Votre nom',
                     'class' => 'input-contact form-control',
                 ],
@@ -31,7 +29,6 @@ class ContactType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => false,
                 'attr' => [
-                    'value' => 'kikoo@lol.com',
                     'placeholder' => 'Votre email',
                     'class' => 'input-contact form-control',
                 ],

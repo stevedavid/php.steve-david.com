@@ -12,7 +12,7 @@ use AppBundle\Form\ContactType;
 class FrontController extends Controller implements Core
 {
     /**
-     * @Route("/", name="front_index")
+     * @Route("/{section}", name="front_index", defaults={"section" = null}, requirements={"section" = "[a-z\/]+"})
      */
     public function indexAction()
     {

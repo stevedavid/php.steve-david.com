@@ -22,7 +22,7 @@ class IndexController extends Controller implements Core
     use Yaml;
 
     /**
-     * @Route("/", name="admin_index_index")
+     * @Route("/", name="admin_index_index", requirements={"section" = "[a-z]+"})
      */
     public function indexAction()
     {
