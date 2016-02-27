@@ -3,6 +3,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Core\CoreInterface as Core;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Config\FileLocator;
@@ -12,16 +13,53 @@ use AppBundle\Form\ContactType;
 class FrontController extends Controller implements Core
 {
     /**
+     * @Route("/download/cv", name="front_cv")
+     */
+    public function downloadCvAction(Request $request)
+    {
+        $counterPath = sprintf(
+            '%s/../Resources/data/%s',
+            __DIR__,
+            self::COUNTER_DOWNLOAD_CV
+        );
+        $count = file($counterPath)[0];
+        $count++;
+        file_put_contents($counterPath, $count);
+
+        $filename = 'CV_Steve_David.pdf';
+        $file = sprintf(
+            '%s/../web/dl/cv/%s',
+            $this->getParameter('kernel.root_dir'),
+            $filename
+        );
+        header('Content-type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+
+        @readfile($file);
+
+        $closeWindows = <<<JS
+<script type="text/javascript">
+    close();
+</script>
+JS;
+        return new Response($closeWindows);
+
+    }
+
+    /**
      * @Route("/{section}", name="front_index", defaults={"section" = null}, requirements={"section" = "[a-z\/]+"})
      */
     public function indexAction()
     {
-
         return $this->render('views/index.html.twig', [
             'age' => (new \DateTime(self::BIRTHDATE))->diff(new \DateTime())->y,
         ]);
     }
-
     function parcoursAction()
     {
         $parcours = $this->get(self::YAML_MANAGER)->loadData(self::YML_PARCOURS);

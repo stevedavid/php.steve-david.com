@@ -403,6 +403,27 @@ div.easy-pie {
     margin-top: 10px;
 }
 
+.download-cv {
+    color: #616265;
+}
+
+.download-cv:hover {
+    text-decoration: none;
+    color: #616265;
+}
+
+.download-cv > div {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.download-cv:hover > div {
+    background-color: #e1e2e5;
+}
+
 @media screen and (max-width: 991px) {
     #prez-box-2, 
     #section1 .box-img {
