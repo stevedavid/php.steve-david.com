@@ -13,27 +13,22 @@ use AppBundle\Form\ContactType;
 class FrontController extends Controller implements Core
 {
     /**
-     * @Route("/download/cv", name="front_cv")
+     * @Route("/telecharger-cv", name="front_cv")
      */
     public function downloadCvAction(Request $request)
     {
-        $counterPath = sprintf(
-            '%s/../Resources/data/%s',
-            __DIR__,
-            self::COUNTER_DOWNLOAD_CV
-        );
-        $count = file($counterPath)[0];
-        $count++;
-        file_put_contents($counterPath, $count);
+        $downloadCounter = $this->get('CvDownloadCounter');
 
-        $filename = 'CV_Steve_David.pdf';
+        $counter = $downloadCounter->incrementsToday();
+        $downloadCounter->save($counter);
+
         $file = sprintf(
             '%s/../web/dl/cv/%s',
             $this->getParameter('kernel.root_dir'),
-            $filename
+            self::CV_FILENAME
         );
         header('Content-type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Disposition: attachment; filename="' . self::CV_FILENAME . '"');
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

@@ -10,7 +10,7 @@ interface CoreInterface
     const YML_CALENDRIER        = 'calendrier';
     const YML_CONTACT           = 'contact';
 
-    const COUNTER_DOWNLOAD_CV   = 'counter_download_cv.txt';
+    const CV_FILENAME           = 'CV_Steve_David.pdf';
 
     const EMAIL_CONTACT         = 'steve@steve-david.com';
 

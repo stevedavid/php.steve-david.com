@@ -5,3 +5,5 @@ services:
             class: AppBundle\Twig\Extension\ofExtension
             tags:
                 - {name: twig.extension}
+    cvDownloadCounter:
+        class: AppBundle\Service\CvDownloadCounter

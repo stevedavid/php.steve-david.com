@@ -26,12 +26,24 @@ class IndexController extends Controller implements Core
      */
     public function indexAction()
     {
-        $yml = [];
+        $data = [];
         foreach($this->ymlFiles as $key => $file) {
-            $yml[$key] = $this->get(self::YAML_MANAGER)->loadData($file);
+            $data[$key] = $this->get(self::YAML_MANAGER)->loadData($file);
         }
 
-        return $this->render('views/admin/index/index.html.twig', $yml);
+        $downloads = $this->get('cvDownloadCounter')->getUsableArray();
+
+        if (!empty($downloads)) {
+            $max = max($downloads);
+            foreach ($downloads as $date => &$count) {
+                $count = sprintf('%s|%s', round($count * 100 / $max, 0), $count);
+            }
+        }
+
+
+        $data['cv_downloads'] = $downloads;
+
+        return $this->render('views/admin/index/index.html.twig', $data);
     }
 
     function navigationAction()

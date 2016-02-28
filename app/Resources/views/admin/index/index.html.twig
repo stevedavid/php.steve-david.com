@@ -3,58 +3,84 @@
 {% block body %}
     <!-- Content Header (Page header) -->
     <!-- Main content -->
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-aqua">
-        <div class="inner">
-            <h3>{{ parcours.experiences|length + parcours.formation|length }}</h3>
-            <p>Expériences</p>
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>{{ parcours.experiences|length + parcours.formation|length }}</h3>
+                <p>Expériences</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-university"></i>
+            </div>
+            <a href="{{ path('admin_yaml_edit', {ymlFile: 'parcours'}) }}" class="small-box-footer">Voir le détail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
-        <div class="icon">
-            <i class="fa fa-university"></i>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>{{ realisations|length }}</h3>
+                <p>Réalisations</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-calendar"></i>
+            </div>
+            <a href="{{ path('admin_yaml_edit', {ymlFile: 'realisations'}) }}" class="small-box-footer">Voir le détail <i class="fa fa-arrow-circle-right"></i></a>
         </div>
-        <a href="{{ path('admin_yaml_edit', {ymlFile: 'parcours'}) }}" class="small-box-footer">Voir le détail <i class="fa fa-arrow-circle-right"></i></a>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h3>{{ citations|length }}</h3>
+                <p>Citations</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-comments"></i>
+            </div>
+            <a href="{{ path('admin_yaml_edit', {ymlFile: 'citations'}) }}" class="small-box-footer">Voir le détail <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>{{ competences|length }}</h3>
+                <p>Domaines de compétences</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-code"></i>
+            </div>
+            <a href="{{ path('admin_yaml_edit', {ymlFile: 'competences'}) }}" class="small-box-footer">Voir le détail <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div><!-- ./col -->
+    <div class="row-fluid">
+        <div class="col-xs-12">
+            <div class="box box-default color-palette-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-photo"></i> Téléchargements du CV</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {% for date, count in cv_downloads %}
+                                {% set count = count|split('|') %}
+                            <div class="progress vertical progress-xs" rel="tooltip" title="{{ date }} : {{ count[1] }} téléchargements">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="height: {{ count[0] }}%">
+                                    <span class="sr-only">{{ count[0] }}%</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+        </div>
     </div>
-</div><!-- ./col -->
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-green">
-        <div class="inner">
-            <h3>{{ realisations|length }}</h3>
-            <p>Réalisations</p>
-        </div>
-        <div class="icon">
-            <i class="fa fa-calendar"></i>
-        </div>
-        <a href="{{ path('admin_yaml_edit', {ymlFile: 'realisations'}) }}" class="small-box-footer">Voir le détail <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-</div><!-- ./col -->
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-        <div class="inner">
-            <h3>{{ citations|length }}</h3>
-            <p>Citations</p>
-        </div>
-        <div class="icon">
-            <i class="fa fa-comments"></i>
-        </div>
-        <a href="{{ path('admin_yaml_edit', {ymlFile: 'citations'}) }}" class="small-box-footer">Voir le détail <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-</div><!-- ./col -->
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-red">
-        <div class="inner">
-            <h3>{{ competences|length }}</h3>
-            <p>Domaines de compétences</p>
-        </div>
-        <div class="icon">
-            <i class="fa fa-code"></i>
-        </div>
-        <a href="{{ path('admin_yaml_edit', {ymlFile: 'competences'}) }}" class="small-box-footer">Voir le détail <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-</div><!-- ./col -->
 {% endblock %}
 
 {% block js %}
