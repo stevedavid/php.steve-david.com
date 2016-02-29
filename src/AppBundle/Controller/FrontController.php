@@ -13,7 +13,22 @@ use AppBundle\Form\ContactType;
 class FrontController extends Controller implements Core
 {
     /**
-     * @Route("/telecharger-cv", name="front_cv")
+     * @Route("/", name="front_index")
+     * @Route("/presentation/", name="front_presentation")
+     * @Route("/parcours/", name="front_parcours")
+     * @Route("/competences/", name="front_competences")
+     * @Route("/realisations/", name="front_realisations")
+     * @Route("/contact/", name="front_contact")
+     */
+    public function indexAction()
+    {
+        return $this->render('views/index.html.twig', [
+            'age' => (new \DateTime(self::BIRTHDATE))->diff(new \DateTime())->y,
+        ]);
+    }
+
+    /**
+     * @Route("/cv", name="front_cv")
      */
     public function downloadCvAction(Request $request)
     {
@@ -43,18 +58,8 @@ class FrontController extends Controller implements Core
 </script>
 JS;
         return new Response($closeWindows);
-
     }
 
-    /**
-     * @Route("/{section}", name="front_index", defaults={"section" = null}, requirements={"section" = "[a-z\/]+"})
-     */
-    public function indexAction()
-    {
-        return $this->render('views/index.html.twig', [
-            'age' => (new \DateTime(self::BIRTHDATE))->diff(new \DateTime())->y,
-        ]);
-    }
     function parcoursAction()
     {
         $parcours = $this->get(self::YAML_MANAGER)->loadData(self::YML_PARCOURS);

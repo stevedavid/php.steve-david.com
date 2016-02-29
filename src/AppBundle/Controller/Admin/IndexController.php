@@ -32,6 +32,7 @@ class IndexController extends Controller implements Core
         }
 
         $downloads = $this->get('cvDownloadCounter')->getUsableArray();
+        $data['cv_downloads_total'] = array_sum($downloads);
 
         if (!empty($downloads)) {
             $max = max($downloads);
@@ -39,7 +40,6 @@ class IndexController extends Controller implements Core
                 $count = sprintf('%s|%s', round($count * 100 / $max, 0), $count);
             }
         }
-
 
         $data['cv_downloads'] = $downloads;
 

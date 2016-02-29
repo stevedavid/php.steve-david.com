@@ -21,6 +21,7 @@ class MicroKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Knp\Bundle\TimeBundle\KnpTimeBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             // new FOS\UserBundle\FOSUserBundle(),
         ];
 
