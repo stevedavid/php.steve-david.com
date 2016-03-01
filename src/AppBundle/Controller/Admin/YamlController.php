@@ -55,7 +55,7 @@ class YamlController extends Controller implements Core
 
         $file = $yamlManager->locateFile($ymlFile);
 
-        if($yamlManager->saveData('test.yml', $request->request->get('yaml'))) {
+        if($yamlManager->saveData($file, $request->request->get('yaml'))) {
             return new JsonResponse(['written' => true]);
         }
 

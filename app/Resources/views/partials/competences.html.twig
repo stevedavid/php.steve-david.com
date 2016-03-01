@@ -23,7 +23,7 @@
                             <h2>{{ competence.name }}</h2>
                             {% for item in competence.items %}
                                 {% set i = i + 1 %}
-                                <div class="easy-pie easyPieChart" id="ep{{ i }}" data-value="{{ item.niveau }}" rel="tooltip" title="{{ item.legende|join(', ') }}">
+                                <div class="easy-pie easyPieChart" id="ep{{ i }}" data-value="{{ item.niveau }}" rel="tooltip" title="{{ item.legende|sort|join(', ') }}">
                                     <span class="percent" >{{ item.name }}</span>
                                 </div>
                             {% endfor %}
