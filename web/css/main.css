@@ -16,7 +16,7 @@ body {
 }
 
 .parallax1 {
-    background-image :url(../images/php-code.jpg); 
+    background-image :url(../images/php-code.jpg);
 }
 
 #prez-box-1,
@@ -205,7 +205,7 @@ a.nice-link:after {
 }
 
 #mon-metier {
-    padding-top: 10px;   
+    padding-top: 10px;
 }
 
 #logo-header {
@@ -223,8 +223,8 @@ display: block;
 text-transform: uppercase;
 font-weight: 900;
 font-size: 32px;
-letter-spacing: 4px; 
-margin-left: 1px;   
+letter-spacing: 4px;
+margin-left: 1px;
 }
 
 textarea {
@@ -391,7 +391,7 @@ div.easy-pie {
     text-transform: uppercase;
     text-align: left;
     letter-spacing: 1px;
-    font-style: italic; 
+    font-style: italic;
 }
 
 .list-experiences.col-md-9 h3 span.data {
@@ -424,8 +424,30 @@ div.easy-pie {
     background-color: #e1e2e5;
 }
 
+.ngdialog input {
+    margin-bottom: 10px;
+}
+
+/*.ngdialog-content {*/
+    /*padding-bottom: 0 !important;*/
+/*}*/
+
+/*@media not all and (-webkit-min-device-pixel-ratio:0) {*/
+    /*.ngdialog-content {*/
+        /*padding-bottom: 3em !important;*/
+    /*}*/
+/*}*/
+
+.has-error .form-control {
+    border-color: #8f5b5a !important;
+}
+
+.has-success .form-control {
+    border-color: #446d45 !important;
+}
+
 @media screen and (max-width: 991px) {
-    #prez-box-2, 
+    #prez-box-2,
     #section1 .box-img {
         margin-bottom: 30px;
     }

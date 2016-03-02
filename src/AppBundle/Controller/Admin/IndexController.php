@@ -31,7 +31,12 @@ class IndexController extends Controller implements Core
             $data[$key] = $this->get(self::YAML_MANAGER)->loadData($file);
         }
 
-        $downloads = $this->get('cvDownloadCounter')->getUsableArray();
+        $downloads = $this->get(self::YAML_MANAGER)->loadData(self::YML_CV_DOWNLOADS);
+
+        foreach ($downloads as $date => $downloadCount) {
+            $downloads[$date] = count($downloadCount);
+        }
+
         $data['cv_downloads_total'] = array_sum($downloads);
 
         if (!empty($downloads)) {

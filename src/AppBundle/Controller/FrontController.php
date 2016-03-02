@@ -27,39 +27,6 @@ class FrontController extends Controller implements Core
         ]);
     }
 
-    /**
-     * @Route("/cv", name="front_cv")
-     */
-    public function downloadCvAction(Request $request)
-    {
-        $downloadCounter = $this->get('CvDownloadCounter');
-
-        $counter = $downloadCounter->incrementsToday();
-        $downloadCounter->save($counter);
-
-        $file = sprintf(
-            '%s/../web/dl/cv/%s',
-            $this->getParameter('kernel.root_dir'),
-            self::CV_FILENAME
-        );
-        header('Content-type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . self::CV_FILENAME . '"');
-        header('Content-Transfer-Encoding: binary');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($file));
-
-        @readfile($file);
-
-        $closeWindows = <<<JS
-<script type="text/javascript">
-    close();
-</script>
-JS;
-        return new Response($closeWindows);
-    }
-
     function parcoursAction()
     {
         $parcours = $this->get(self::YAML_MANAGER)->loadData(self::YML_PARCOURS);

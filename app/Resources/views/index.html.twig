@@ -25,16 +25,51 @@
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp" type="text/javascript"></script>
     <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/css/ngDialog.min.css" rel="stylesheet" type="text/css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/css/ngDialog-theme-default.min.css" rel="stylesheet" type="text/css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/css/ngDialog-theme-plain.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/ngDialog/ngDialog-theme-flat.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div id="loader-wrapper">
     <div id="loader"></div>
 </div>
 {{ include('partials/header.html.twig') }}
-<section id="section1" class="cd-section">
+<section id="section1" class="cd-section" ng-app="appPresentation">
+    <script type="text/ng-template" id="CvDownload">
+        <form name="cvForm" style="padding: 0; margin: 0" action="#" ng-controller="CvFormCtrl" novalidate ng-submit="submit($event, cvForm)">
+            <div class="ng-dialog-message">
+                <fieldset>
+                    <legend><small>Qui êtes-vous ?</small></legend>
+                    <div class="form-group" ng-class="inputNameClass">
+                        <input value="Mon nom" ng-model="inputName" type="text" class="form-control" name="inputName" placeholder="Nom et prénom"/>
+                    </div>
+                    <div class="form-group" ng-class="inputCompanyClass">
+                        <input ng-model="inputCompany" type="text" class="form-control" name="inputCompany" placeholder="Société"/>
+                    </div>
+                    <div class="form-group" ng-class="inputEmailClass">
+                        <input ng-model="inputEmail" type="email" class="form-control" name="inputEmail" placeholder="Email"/>
+                    </div>
+                    <div class="form-group" ng-class="inputPhoneClass">
+                        <input ng-model="inputPhone" type="text" class="form-control" name="inputPhone" placeholder="Téléphone"/>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="ngdialog-buttons">
+                <button type="submit" class="ngdialog-button ngdialog-button-primary">Télécharger</button>
+                <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog('button')">Annuler</button>
+            </div>
+        </form>
+    </script>
+    <script type="text/ng-template" id="merciDialog">
+        <div class="ng-dialog-message text-center">
+            <h3>Merci !</h3>
+            <small style="color: #dbdbdb">Le téléchargement va démarrer dans quelques secondes.</small>
+        </div>
+    </script>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" ng-controller="CvCtrl">
                 <div class="box-content about">
                     <h1> Présentation</h1>
                     <div class="col-xs-12 col-md-4">
@@ -59,7 +94,7 @@
                         <div class="box-img">
                             <img src="images/steve1.png" alt="" />
                         </div>
-                        <a href="{{ path('front_cv') }}" target="_blank" class="download-cv">
+                        <a href="" class="download-cv" ng-click="clickToOpen()">
                             <div class="box-img text-center" style="margin-top: 10px;">
                                 <i class="fa fa-image"></i>
                                 Télécharger mon CV (PDF)
@@ -229,6 +264,9 @@
 <script src="js/morris.js" type="text/javascript"></script>
 <script src="js/jquery.easypiechart.js" type="text/javascript"></script>
 <script src="js/main.js" type="text/javascript"></script> <!-- Resource jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/js/ngDialog.min.js"></script>
+{#<script src="js/cv-download.js"></script>#}
 <script type="text/javascript">
     jQuery(function($) {
         $('.footer-social').find('> a').tooltip({
@@ -375,6 +413,93 @@
         });
 
     });
+</script>
+<script type="text/javascript">
+
+    var app = angular.module('appPresentation', ['ngDialog']);
+
+
+    app.controller('CvCtrl', function($scope, ngDialog) {
+        $scope.clickToOpen = function() {
+            $scope.dialog = ngDialog.open({
+                template: 'CvDownload',
+                controller: 'CvFormCtrl',
+                className: 'ngDialog-theme-flat',
+                scope: $scope
+            });
+        };
+    });
+
+    app.controller('CvFormCtrl', function($scope, ngDialog) {
+        $scope.submit = function(event, form) {
+            event.preventDefault();
+            var name = form.inputName.$viewValue
+                    , company = form.inputCompany.$viewValue
+                    , email = form.inputEmail.$viewValue
+                    , phone = form.inputPhone.$viewValue
+                    ;
+
+            if(typeof name == 'undefined') {
+                $scope.inputNameClass = 'has-error';
+            } else {
+                $scope.inputNameClass = 'has-success';
+                var validName = true;
+            }
+            if(typeof company == 'undefined') {
+                $scope.inputCompanyClass = 'has-error';
+            } else {
+                $scope.inputCompanyClass = 'has-success';
+                var validCompany = true;
+            }
+            if(typeof email == 'undefined' || /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email) == false) {
+                $scope.inputEmailClass = 'has-error';
+            } else {
+                $scope.inputEmailClass = 'has-success';
+                var validEmail = true;
+            }
+            if(typeof phone == 'undefined') {
+                $scope.inputPhoneClass = 'has-error';
+            } else {
+                $scope.inputPhoneClass = 'has-success';
+                var validPhone = true;
+            }
+
+            if(validName && validCompany && validEmail && validPhone) {
+                $scope.data = {
+                    name: name,
+                    company: company,
+                    email: email,
+                    phone: phone
+                };
+                window.setTimeout(function() {
+                    ngDialog.close($scope.dialog.id);
+                    $scope.dialog = ngDialog.open({
+                        template: 'merciDialog',
+                        controller: 'CvDownloadCtrl',
+                        scope: $scope,
+                        className: 'ngdialog-theme-flat'
+                    });
+                }, 250);
+            }
+        }
+    });
+
+    app.controller('CvDownloadCtrl', function($scope, ngDialog) {
+        console.log($scope.data);
+        window.setTimeout(function() {
+            $.ajax({
+                url: '{{ path('cv_save_infos') }}',
+                data: $scope.data,
+                method: 'post',
+                success: function() {
+                    window.location.assign('{{ path('cv_download') }}');
+                    $('.download-cv').slideUp();
+                }
+            });
+            ngDialog.close($scope.dialog.id);
+        }, 1000);
+    });
+
 </script>
 
 
