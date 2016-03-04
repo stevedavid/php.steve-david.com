@@ -17,7 +17,7 @@
                 <li>
                     <!-- timeline icon -->
                     <i class="fa fa-download bg-blue"></i>
-                    <div class="timeline-item">
+                    <div class="timeline-item" style="display: inline-block; width: 90%">
                         <span class="time">
                             <i class="fa fa-clock-o"></i> {{ time }}
                             <span class="label label-default label-xs"><i class="fa fa-plus"></i></span>
@@ -36,6 +36,10 @@
                             <span class="label label-primary label-xs">{{ detail.company }}</span>
                         </div>
                     </div>
+                    <a href="{{ path('admin_cv_supprimer', {dateTime: date ~ '-' ~ time}) }}">
+                        <i class="fa fa-times-circle"></i>
+                    </a>
+
                 </li>
                 {% endfor %}
 
@@ -48,11 +52,11 @@
 {% block js %}
     <script>
         jQuery(function($) {
-            $('.timeline-header').on('click', function() {
+            $('.timeline-header').on('click', function(e) {
                 $(this).css('cursor', 'pointer');
                 $body = $(this).closest('.timeline-item').find('.timeline-body, .timeline-footer');
                 $expand = $(this).closest('.timeline-item').find('.label').find('.fa');
-                if($body.is(':visible')) {
+                if ($body.is(':visible')) {
                     $body.slideUp();
                     $expand.removeClass('fa-minus').addClass('fa-plus');
                 } else {
@@ -60,6 +64,7 @@
                     $expand.removeClass('fa-plus').addClass('fa-minus');
                 }
             });
+
         });
     </script>
 {% endblock %}

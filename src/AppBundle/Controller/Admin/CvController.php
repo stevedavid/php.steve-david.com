@@ -35,4 +35,25 @@ class CvController extends Controller implements Core
             'downloads' => array_reverse($downloads),
         ]);
     }
+
+
+    /**
+     * @Route("/{dateTime}", name="admin_cv_supprimer", requirements={"dateTime" = "[a-zA-Z0-9-:\/]+"})
+     */
+    public function supprimerAction($dateTime)
+    {
+        $dateTime = explode('-', $dateTime);
+        $yamlManager = $this->get(self::YAML_MANAGER);
+        $downloads = $yamlManager->loadData(self::YML_CV_DOWNLOADS);
+
+        unset($downloads[$dateTime[0]][$dateTime[1]]);
+
+        if(!count($downloads[$dateTime[0]])) {
+            unset($downloads[$dateTime[0]]);
+        }
+
+        $yamlManager->saveData($yamlManager->locateFile(self::YML_CV_DOWNLOADS), $downloads);
+
+        return $this->redirect($this->generateUrl('admin_cv_index'));
+    }
 }
