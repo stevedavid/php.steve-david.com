@@ -40,7 +40,7 @@
         <form name="cvForm" style="padding: 0; margin: 0" action="#" ng-controller="CvFormCtrl" novalidate ng-submit="submit($event, cvForm)">
             <div class="ng-dialog-message">
                 <fieldset>
-                    <legend><small>Merci pour votre intérêt ! Mais, qui êtes-vous ?</small></legend>
+                    <legend><small>Présentez-vous en quelques mots !</small></legend>
                     <div class="form-group" ng-class="inputNameClass">
                         <input value="Mon nom" ng-model="inputName" type="text" class="form-control" name="inputName" placeholder="Nom et prénom"/>
                     </div>
@@ -64,7 +64,7 @@
     <script type="text/ng-template" id="merciDialog">
         <div class="ng-dialog-message text-center">
             <h3>Merci !</h3>
-            <small style="color: #dbdbdb">Votre téléchargement va démarrer dans <strong id="milliCountdown">3000</strong> millisecondes.</small>
+            <small style="color: #dbdbdb">Votre téléchargement va démarrer dans <strong id="milliCountdown">3</strong> <span class="secondes">secondes</span>...</small>
             <p>
                 <span class="ng-progress" id="outerProgress" ng-model="ngProgress">
                     <span id="progressBar"></span>
@@ -478,7 +478,9 @@
                 $scope.inputPhoneClass = 'has-success';
                 var validPhone = true;
             }
-            
+
+            // evite de remplir le formulaire pendant les tests en dev
+            // validName = validCompany = validEmail = validPhone = true;
             if(validName && validCompany && validEmail && validPhone) {
                 $scope.data = {
                     name: name,
@@ -507,16 +509,21 @@
             var $milliSeconds = $modal.find('#milliCountdown');
             var count = window.setInterval(function() {
                 var countDown = parseInt($milliSeconds.text());
-                if(countDown <= 0) {
+                if(countDown == 1) {
                     clearInterval(count);
+                    $modal.find('small').text('Votre téléchargement commence maintenant !')
                 } else {
-                    $milliSeconds.text(countDown - 4);
+                    countDown--;
+                    $milliSeconds.text(countDown);
+                    if(countDown == 1) {
+                        $modal.find('.secondes').text('seconde');
+                    }
                 }
-            }, 1);
+            }, 1000);
             $modal.find('#progressBar').animate({
                 'width': '100%'
-            }, 2250, function() {
-                $modal.find('#outerProgress').fadeTo(748, 0, function() {
+            }, 2500, function() {
+                $modal.find('#outerProgress').fadeTo(1000, 0, function() {
                     $.ajax({
                         url: '{{ path('cv_save_infos') }}',
                         data: $scope.data,
