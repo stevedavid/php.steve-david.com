@@ -61,7 +61,7 @@
         dates: ['octobre 2013', 'mai 2014']
         technologies: [PHP5.4, MySQL, HTML5, CSS3, jQuery]
         link: 'Voir le site'
-        visible: 'true'
+        href: '#'
 -
     thumbnail:
         name: 'L''énervée'
@@ -73,7 +73,7 @@
         name: 'L''énervée'
         image: lenervee2.png
         why: 'En 2013, une amie m''explique l''une de ses occupations : envoyer des courriers de réclamation humoristiques aux services consommateurs des marques de la grande distribution pour les faire rire. L''idée d''en faire un blog germe alors dans mon esprit.'
-        results: 'Fin 2015, L''énervée c''est 370 000+ pages vues pour presque 120 000 visites. Le blog a été publié dans <a href=''http://www.lemonde.fr/m-styles/article/2015/01/21/l-enervee-ce-blog-qui-ecrit-aux-marques_4560697_4497319.html'' target=''_blank'' class=''nice-link''>Le Monde</a> et <a class=''nice-link'' href=''http://lefigaro.fr/conso/2014/12/31/05007-20141231ARTFIG00075-l-enervee-la-consommatrice-qui-titille-les-grandes-marques.php'' target=''_blank''>Le Figaro</a>.'
+        results: 'Début 2016, L''énervée c''est 470 000+ pages vues pour presque 150 000 visites. Le blog a été publié dans <a href=''http://www.lemonde.fr/m-styles/article/2015/01/21/l-enervee-ce-blog-qui-ecrit-aux-marques_4560697_4497319.html'' target=''_blank'' class=''nice-link''>Le Monde</a>, <a class=''nice-link'' href=''http://lefigaro.fr/conso/2014/12/31/05007-20141231ARTFIG00075-l-enervee-la-consommatrice-qui-titille-les-grandes-marques.php'' target=''_blank''>Le Figaro</a> et <a class=''nice-link'' href=''http://www.leparisien.fr/espace-premium/actu/il-met-en-boite-les-grandes-marques-14-12-2015-5369063.php'' target=''_blank''>Le Parisien</a>.'
         dates: ['mai 2014', 'aujourd''hui']
         technologies: ['Wordpress 4.2']
         link: 'Voir le blog'
@@ -137,7 +137,7 @@
         name: Steve-David.com
         image: stevedavid.png
         why: 'En novembre 2015, Symfony3 sort. Je m''intéresse immédiatement à cette nouvelle version en tant que microframework. Ayant toujours voulu utiliser SF pour mon site personnel quoi qu''un peu rebuté par la lourdeur du framework, je suis immédiatement séduit par cette fonctionnalité.'
-        results: 'Le site dispose maintenant d''une administration me permettant d''éditer à la volée toutes les informations stockées dans des fichiers YAML. J''intègre également un calendrier pour gérer mes rendez-vous ainsi qu''une interface de gestion des messages reçus via le formulaire de contact. Le code est également disponible sur <a href="https://github.com/stevedavid/steve-david.com/" target="_blank">GitHub</a>.'
+        results: 'Le site dispose maintenant d''une administration me permettant d''éditer à la volée toutes les informations stockées dans des fichiers YAML. J''intègre également un compteur de téléchargement de mon CV ainsi qu''une interface de gestion des messages reçus via le formulaire de contact. Le code est disponible sur <a href="https://github.com/stevedavid/steve-david.com/" target="_blank">GitHub</a>.'
         dates: ['novembre 2015', 'décembre 2015']
         technologies: [PHP5.6, MySQL, Symfony3, jQuery]
         link: 'Voir le site'

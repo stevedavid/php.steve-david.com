@@ -49,7 +49,11 @@
                         <div class="col-md-12 text-center" id="link-to-rea">
                             <i class="fa fa-anchor-link"></i>
                             <br/>
-                            <a href="{{ realisation.popup.href }}" class="nice-link" target="_blank">{{ realisation.popup.link }}</a>
+                            {% if realisation.popup.href == '#' %}
+                                <span class="nice-link" style="text-decoration: line-through; border-bottom: 1px dotted black;">{{ realisation.popup.link }}</span>
+                            {% else %}
+                                <a href="{{ realisation.popup.href }}" class="nice-link" target="_blank">{{ realisation.popup.link }}</a>
+                            {% endif %}
                         </div>
                     </div>
                 </section>

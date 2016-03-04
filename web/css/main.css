@@ -180,19 +180,19 @@ figcaption {
     font-size: 16px;
 }
 
-a.nice-link:link, a.nice-link:visited {
+.nice-link:link, a.nice-link:visited {
     color: black;
     border-bottom: 1px dotted black;
 }
 
 
-a.nice-link:active, a.nice-link:hover {
+.nice-link:active, a.nice-link:hover {
     color: black;
     border-bottom: none;
     text-decoration: none;
 }
 
-a.nice-link:after {
+.nice-link:after {
     content: "\f08e";
     display: inline-block;
     margin-left: 10px;
