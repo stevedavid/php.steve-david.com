@@ -64,10 +64,11 @@
     <script type="text/ng-template" id="merciDialog">
         <div class="ng-dialog-message text-center">
             <h3>Merci !</h3>
-            <small style="color: #dbdbdb">Le téléchargement va démarrer dans quelques instants.</small>
+            <small style="color: #dbdbdb">Votre téléchargement va démarrer dans <strong id="milliCountdown">3000</strong> millisecondes.</small>
             <p>
-                <span class="ng-progress" ng-model="ngProgress">
-                    <span></span>
+                <span class="ng-progress" id="outerProgress" ng-model="ngProgress">
+                    <span id="progressBar"></span>
+                    <span id="innerProgress"></span>
                 </span>
             </p>
         </div>
@@ -477,7 +478,7 @@
                 $scope.inputPhoneClass = 'has-success';
                 var validPhone = true;
             }
-
+            
             if(validName && validCompany && validEmail && validPhone) {
                 $scope.data = {
                     name: name,
@@ -502,11 +503,20 @@
 
     app.controller('CvDownloadCtrl', function($scope, ngDialog, $rootScope) {
         window.setTimeout(function() {
-            $modal = angular.element($rootScope.dialog);
-            $modal.find('.ng-progress > span').animate({
+            var $modal = angular.element($rootScope.dialog);
+            var $milliSeconds = $modal.find('#milliCountdown');
+            var count = window.setInterval(function() {
+                var countDown = parseInt($milliSeconds.text());
+                if(countDown <= 0) {
+                    clearInterval(count);
+                } else {
+                    $milliSeconds.text(countDown - 4);
+                }
+            }, 1);
+            $modal.find('#progressBar').animate({
                 'width': '100%'
-            }, 1500, function() {
-                $modal.find('.ng-progress').fadeTo(500, 0, function() {
+            }, 2250, function() {
+                $modal.find('#outerProgress').fadeTo(748, 0, function() {
                     $.ajax({
                         url: '{{ path('cv_save_infos') }}',
                         data: $scope.data,
