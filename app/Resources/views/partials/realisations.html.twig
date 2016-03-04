@@ -19,7 +19,7 @@
                 <div class="portfolio albumContainer">
 
                     {% for key, realisation in realisations %}
-                        <div class="{{ realisation.thumbnail.category }} col-md-4 item">
+                        <div class="{{ realisation.thumbnail.category }} col-md-4 item" data-order="{{ key }}">
                             <div class="grid">
                                 <figure class="effect-oscar">
                                     <img src="images/realisations/{{ realisation.thumbnail.image }}" alt="" />

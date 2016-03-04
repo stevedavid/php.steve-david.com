@@ -126,6 +126,7 @@ $(document).ready(function ($) {
     /********************************************
     PORTFOLIO
     ********************************************/
+
     $(window).load(function () {
         var $container = $('.albumContainer');
         $container.isotope({
@@ -134,7 +135,15 @@ $(document).ready(function ($) {
                 duration: 750,
                 easing: 'linear',
                 queue: false
-            }
+            },
+            getSortData: {
+                identifiant: function($elem) {
+                    console.log(parseInt($elem.attr('data-order')));
+                    return parseInt($elem.attr('data-order'));
+                }
+            },
+            //sortBy: 'identifiant',
+            //sortAscending: false
         });
 
         $('.albumFilter li').on("click", function () {
@@ -349,15 +358,28 @@ var animateOnScroll = function(moving_point, element, delay, animation_duration,
     o = offset;
 
 
+
+
     $(mp).waypoint(function() {
+        console.log(mp);
+
         $(el).each(function() {
             $(this).delay(d).animate({opacity: 1}, ad);
             d += 250;
-        })
-            }, {
+        });
+        if(mp == '#scroll-realisations') {
+            window.setTimeout(function() {
+                var $container = $('.albumContainer');
+                $container.isotope({sortBy: 'identifiant'});
+            }, d);
+        }
+    }, {
         offset: o+'%',
         triggerOnce: true
     });
+
+    //console.log(mp);
+
 };
 
 var activeMenu = function(moving_point, element, position) {
