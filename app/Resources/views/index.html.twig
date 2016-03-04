@@ -65,6 +65,11 @@
         <div class="ng-dialog-message text-center">
             <h3>Merci !</h3>
             <small style="color: #dbdbdb">Le téléchargement va démarrer dans quelques instants.</small>
+            <p>
+                <span class="ng-progress" ng-model="ngProgress">
+                    <span></span>
+                </span>
+            </p>
         </div>
     </script>
     <div class="container">
@@ -416,7 +421,14 @@
 </script>
 <script type="text/javascript">
 
-    var app = angular.module('appPresentation', ['ngDialog']);
+    var app = angular.module('appPresentation', ['ngDialog'])
+            .run(function($rootScope) {
+                $rootScope.$on('ngDialog.opened', function (e, $dialog) {
+                    if(typeof $dialog.dialog != 'undefined') {
+                        $rootScope.dialog = $dialog.dialog;
+                    }
+                });
+            });
 
 
     app.controller('CvCtrl', function($scope, ngDialog) {
@@ -425,7 +437,8 @@
                 template: 'CvDownload',
                 controller: 'CvFormCtrl',
                 className: 'ngDialog-theme-flat',
-                scope: $scope
+                scope: $scope,
+                closeByDocument: false
             });
         };
     });
@@ -437,8 +450,9 @@
                     , company = form.inputCompany.$viewValue
                     , email = form.inputEmail.$viewValue
                     , phone = form.inputPhone.$viewValue
-                    ;
-
+                    , emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    , phoneRegex = /^(0[1-79])(?:[ .-]?(\d{2})){4}$/
+                ;
             if(typeof name == 'undefined') {
                 $scope.inputNameClass = 'has-error';
             } else {
@@ -451,13 +465,13 @@
                 $scope.inputCompanyClass = 'has-success';
                 var validCompany = true;
             }
-            if(typeof email == 'undefined' || /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email) == false) {
+            if(typeof email == 'undefined' || emailRegex.test(email) == false) {
                 $scope.inputEmailClass = 'has-error';
             } else {
                 $scope.inputEmailClass = 'has-success';
                 var validEmail = true;
             }
-            if(typeof phone == 'undefined') {
+            if(typeof phone == 'undefined' || phoneRegex.test(phone) == false) {
                 $scope.inputPhoneClass = 'has-error';
             } else {
                 $scope.inputPhoneClass = 'has-success';
@@ -477,26 +491,35 @@
                         template: 'merciDialog',
                         controller: 'CvDownloadCtrl',
                         scope: $scope,
-                        className: 'ngdialog-theme-flat'
+                        name: 'thankYou',
+                        className: 'ngdialog-theme-flat',
+                        showClose: false
                     });
                 }, 250);
             }
         }
     });
 
-    app.controller('CvDownloadCtrl', function($scope, ngDialog) {
-        console.log($scope.data);
+    app.controller('CvDownloadCtrl', function($scope, ngDialog, $rootScope) {
         window.setTimeout(function() {
-            $.ajax({
-                url: '{{ path('cv_save_infos') }}',
-                data: $scope.data,
-                method: 'post',
-                success: function() {
-                    window.location.assign('{{ path('cv_download') }}');
-                }
+            $modal = angular.element($rootScope.dialog);
+            $modal.find('.ng-progress > span').animate({
+                'width': '100%'
+            }, 1500, function() {
+                $modal.find('.ng-progress').fadeTo(500, 0, function() {
+                    $.ajax({
+                        url: '{{ path('cv_save_infos') }}',
+                        data: $scope.data,
+                        method: 'post',
+                        success: function() {
+                            window.location.assign('{{ path('cv_download') }}');
+                        }
+                    });
+                    ngDialog.close($scope.dialog.id);
+                });
+
             });
-            ngDialog.close($scope.dialog.id);
-        }, 1000);
+        }, 2);
     });
 
 </script>
