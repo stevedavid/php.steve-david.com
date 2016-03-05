@@ -37,21 +37,23 @@
 {{ include('partials/header.html.twig') }}
 <section id="section1" class="cd-section" ng-app="appPresentation">
     <script type="text/ng-template" id="CvDownload">
-        <form name="cvForm" style="padding: 0; margin: 0" action="#" ng-controller="CvFormCtrl" novalidate ng-submit="submit($event, cvForm)">
+        <form autocomplete="off" name="cvForm" style="padding: 0; margin: 0" action="#" ng-controller="CvFormCtrl" novalidate ng-submit="submit($event, cvForm)">
             <div class="ng-dialog-message">
                 <fieldset>
                     <legend><small>Présentez-vous en quelques mots !</small></legend>
                     <div class="form-group" ng-class="inputNameClass">
-                        <input value="Mon nom" ng-model="inputName" type="text" class="form-control" name="inputName" placeholder="Nom et prénom"/>
+                        <input ng-model="inputName" type="search" class="form-control" name="inputName" placeholder="Nom et prénom"/>
                     </div>
                     <div class="form-group" ng-class="inputCompanyClass">
-                        <input ng-model="inputCompany" type="text" class="form-control" name="inputCompany" placeholder="Société"/>
+                        <input unselectable="on" ng-model="inputCompany" type="search" class="form-control" name="inputCompany" placeholder="Société"/>
                     </div>
-                    <div class="form-group" ng-class="inputEmailClass">
-                        <input ng-model="inputEmail" type="email" class="form-control" name="inputEmail" placeholder="Email"/>
+                    <div class="form-group has-feedback" ng-class="inputEmailClass">
+                        <input ng-model="inputEmail" type="search" class="form-control" name="inputEmail" placeholder="Email"/>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                     </div>
-                    <div class="form-group" ng-class="inputPhoneClass">
-                        <input ng-model="inputPhone" type="text" class="form-control" name="inputPhone" placeholder="Téléphone"/>
+                    <div class="form-group has-feedback" ng-class="inputPhoneClass">
+                        <input ng-model="inputPhone" type="search" class="form-control" name="inputPhone" placeholder="Téléphone"/>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                     </div>
                 </fieldset>
             </div>
@@ -425,7 +427,9 @@
     var app = angular.module('appPresentation', ['ngDialog'])
             .run(function($rootScope) {
                 $rootScope.$on('ngDialog.opened', function (e, $dialog) {
-                    if(typeof $dialog.dialog != 'undefined') {
+                    if(typeof $dialog.dialog == 'undefined') {
+                        $rootScope.dialog = $dialog;
+                    } else {
                         $rootScope.dialog = $dialog.dialog;
                     }
                 });
@@ -444,63 +448,121 @@
         };
     });
 
-    app.controller('CvFormCtrl', function($scope, ngDialog) {
-        $scope.submit = function(event, form) {
-            event.preventDefault();
-            var name = form.inputName.$viewValue
-                    , company = form.inputCompany.$viewValue
-                    , email = form.inputEmail.$viewValue
-                    , phone = form.inputPhone.$viewValue
-                    , emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                    , phoneRegex = /^(0[1-79])(?:[ .-]?(\d{2})){4}$/
-                ;
-            if(typeof name == 'undefined') {
-                $scope.inputNameClass = 'has-error';
-            } else {
-                $scope.inputNameClass = 'has-success';
-                var validName = true;
-            }
-            if(typeof company == 'undefined') {
-                $scope.inputCompanyClass = 'has-error';
-            } else {
-                $scope.inputCompanyClass = 'has-success';
-                var validCompany = true;
-            }
-            if(typeof email == 'undefined' || emailRegex.test(email) == false) {
-                $scope.inputEmailClass = 'has-error';
-            } else {
-                $scope.inputEmailClass = 'has-success';
-                var validEmail = true;
-            }
-            if(typeof phone == 'undefined' || phoneRegex.test(phone) == false) {
-                $scope.inputPhoneClass = 'has-error';
-            } else {
-                $scope.inputPhoneClass = 'has-success';
-                var validPhone = true;
-            }
+    app.controller('CvFormCtrl', function($scope, ngDialog, $rootScope) {
+        window.setTimeout(function() {
+            var $dialog = $($rootScope.dialog)
+                , $emailInput = $dialog.find('.form-control[name=inputEmail]')
+                , $phoneInput = $dialog.find('.form-control[name=inputPhone]')
+                , $nameInput = $dialog.find('.form-control[name=inputName]')
+                , $companyInput = $dialog.find('.form-control[name=inputCompany]')
+                , emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                , phoneRegex = /^(0[1-79])(?:[ .-]?(\d{2})){4}$/
+            ;
+            $dialog.find('input').on('dblclick', function() {
+                return false;
+            });
 
-            // evite de remplir le formulaire pendant les tests en dev
-            // validName = validCompany = validEmail = validPhone = true;
-            if(validName && validCompany && validEmail && validPhone) {
-                $scope.data = {
-                    name: name,
-                    company: company,
-                    email: email,
-                    phone: phone
-                };
-                window.setTimeout(function() {
-                    ngDialog.close($scope.dialog.id);
-                    $scope.dialog = ngDialog.open({
-                        template: 'merciDialog',
-                        controller: 'CvDownloadCtrl',
-                        scope: $scope,
-                        name: 'thankYou',
-                        className: 'ngdialog-theme-flat',
-                        showClose: false
-                    });
-                }, 250);
-            }
-        }
+            $emailInput.on('keyup', function(e) {
+                var value = $(this).val();
+                if(emailRegex.test(value) === false) {
+                    $emailInput
+                            .next('.glyphicon')
+                            .removeClass('glyphicon-ok')
+                            .addClass('glyphicon-remove')
+                            .closest('.form-group')
+                    ;
+                } else {
+                    $emailInput
+                            .next('.glyphicon')
+                            .addClass('glyphicon-ok')
+                            .removeClass('glyphicon-remove')
+                            .closest('.form-group')
+                    ;
+                }
+
+            });
+            $phoneInput.on('keyup', function(e) {
+                var value = $(this).val();
+                if(phoneRegex.test(value) === false) {
+                    $phoneInput
+                            .next('.glyphicon')
+                            .removeClass('glyphicon-ok')
+                            .addClass('glyphicon-remove')
+                            .closest('.form-group')
+                    ;
+                } else {
+                    $phoneInput
+                            .next('.glyphicon')
+                            .addClass('glyphicon-ok')
+                            .removeClass('glyphicon-remove')
+                            .closest('.form-group')
+                    ;
+                }
+
+            });
+            $scope.submit = function(event, form) {
+                $emailInput.next('.glyphicon').removeClass('glyphicon-ok');
+                $phoneInput.next('.glyphicon').removeClass('glyphicon-ok');
+                event.preventDefault();
+                var name = form.inputName.$viewValue
+                        , company = form.inputCompany.$viewValue
+                        , email = form.inputEmail.$viewValue
+                        , phone = form.inputPhone.$viewValue
+                    ;
+                if(typeof name == 'undefined') {
+                    $nameInput.closest('.form-group').addClass('has-error');
+                } else {
+                    $nameInput.closest('.form-group').addClass('has-success');
+                    var validName = true;
+                }
+                if(typeof company == 'undefined') {
+                    $companyInput.closest('.form-group').addClass('has-error');
+                } else {
+                    $companyInput.closest('.form-group').addClass('has-success');
+                    var validCompany = true;
+                }
+                if(typeof email == 'undefined' || emailRegex.test(email) == false) {
+                    $emailInput.closest('.form-group').addClass('has-error');
+                } else {
+                    $emailInput.closest('.form-group').addClass('has-success');
+                    var validEmail = true;
+                }
+                if(typeof phone == 'undefined' || phoneRegex.test(phone) == false) {
+                    $phoneInput.closest('.form-group').addClass('has-error');
+                } else {
+                    $phoneInput.closest('.form-group').addClass('has-success');
+                    var validPhone = true;
+                }
+
+                // evite de remplir le formulaire pendant les tests en dev
+                // validName = validCompany = validEmail = validPhone = true;
+                if(validName && validCompany && validEmail && validPhone) {
+                    $scope.data = {
+                        name: name,
+                        company: company,
+                        email: email,
+                        phone: phone
+                    };
+                    window.setTimeout(function() {
+                        ngDialog.close($scope.dialog.id);
+                        $scope.dialog = ngDialog.open({
+                            template: 'merciDialog',
+                            controller: 'CvDownloadCtrl',
+                            scope: $scope,
+                            name: 'thankYou',
+                            className: 'ngdialog-theme-flat',
+                            showClose: false
+                        });
+                    }, 250);
+                }
+            };
+            $dialog.find('button[type=submit]').on('blur', function(e) {
+                $dialog.find('input').each(function(i, el) {
+                     $(this).closest('.form-group').removeClass('has-success has-error');
+                });
+            });
+        }, 2)
+
     });
 
     app.controller('CvDownloadCtrl', function($scope, ngDialog, $rootScope) {

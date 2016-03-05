@@ -392,6 +392,7 @@ var activeMenu = function(moving_point, element, position) {
             case '#section4': l = 'contact/';
                 break;
         }
+        // l = 'app_dev.php/' + l;
         $('.cl-effect-11').removeClass('current');
         window.history.pushState({},"", l);
         $(el).addClass('current');
