@@ -18,18 +18,18 @@
                 </dl>
                 <div class="portfolio albumContainer">
 
-                    {% for key, realisation in realisations %}
-                        <div class="{{ realisation.thumbnail.category }} col-md-4 item" data-order="{{ key }}">
+                    {% for key, realisation in realisations|reverse(true) %}
+                        <div class="{{ realisation.thumbnail.category }} col-md-4 item">
                             <div class="grid">
                                 <figure class="effect-oscar">
-                                    <img src="images/realisations/{{ realisation.thumbnail.image }}" alt="" />
+                                    <img src="images/realisations/{{ realisation.thumbnail.image }}" alt="{{ realisation.thumbnail.name }}" />
                                     <figcaption>
                                         <p>
-                                              <span>
-                                                {{ realisation.thumbnail.name }} &bull; {{ realisation.thumbnail.type }}
-                                              </span>
+                                          <span>
+                                            {{ realisation.thumbnail.name }} &bull; {{ realisation.thumbnail.type }}
+                                          </span>
                                         </p>
-                                        <a href="details.html" class="smooth-redirect" data-rea="{{ key }}"></a>
+                                        <a href="#" class="smooth-redirect" data-rea="{{ key }}"></a>
                                     </figcaption>
                                 </figure>
                             </div>

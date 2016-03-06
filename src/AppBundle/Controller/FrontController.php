@@ -56,6 +56,7 @@ class FrontController extends Controller implements Core
             });
         }
 
+
         return $this->render('views/partials/competences.html.twig', [
             'competences' => $competences,
         ]);
@@ -70,7 +71,7 @@ class FrontController extends Controller implements Core
         });
 
         return $this->render('views/partials/realisations.html.twig', [
-            'realisations' => array_reverse($realisations),
+            'realisations' => $realisations,
         ]);
     }
 

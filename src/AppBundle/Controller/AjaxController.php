@@ -26,7 +26,7 @@ class AjaxController extends Controller implements Core
     {
         $key = $request->request->get('realisation');
 
-        $realisations = array_reverse($this->get(self::YAML_MANAGER)->loadData(self::YML_REALISATIONS));
+        $realisations = array_reverse($this->get(self::YAML_MANAGER)->loadData(self::YML_REALISATIONS), true);
 
         return $this->render('views/ajax/realisation.html.twig', [
             'realisation' => $realisations[$key],

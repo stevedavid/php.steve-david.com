@@ -134,6 +134,10 @@ figure,
     opacity: 0;
 }
 
+.portfolio .item {
+    height: 224px;
+}
+
 figcaption:hover {
     border: 1px dotted #858585;
     -webkit-transition: all 0.5s ease;
